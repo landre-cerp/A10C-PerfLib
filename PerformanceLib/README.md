@@ -1,5 +1,17 @@
 "# a10c-perf-lib" 
 
-WIP 
+This is a work-in-progress library for DCS A-10C performance calculations.
 
-For DCS A-10C performance calculations only.
+## Takeoff Performance
+
+- PTFS : Predicted Fan Speed
+- Takeoff index (Max thrust and 3% below PTFS)
+- Takeoff speed (Flaps 7 config only )
+- Rotation speed ( Flaps 7 config only )
+
+- RCR values and conversion without antiskid
+
+## Utils
+
+- QNH Conversions
+- PressureAltitude calculation
