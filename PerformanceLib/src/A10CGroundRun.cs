@@ -23,7 +23,7 @@ public partial class A10CPerfCalculator
             takeoffindexes, Grossweights,
             takeoffIndex, grossWeight);
         if (groundRun == -1)
-            throw new Exception("Out of range too heavy for the takeoff index ");
+            throw new ArgumentOutOfRangeException(nameof(grossWeight), $"Aircraft too heavy for the specified takeoff index (takeoffIndex={takeoffIndex}, grossWeight={grossWeight})");
 
         // Wind corrected distance with 10 knots 
         // should be lower that expected 
