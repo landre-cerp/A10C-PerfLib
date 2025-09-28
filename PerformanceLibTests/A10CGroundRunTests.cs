@@ -34,7 +34,7 @@ public class A10CGroundRunTests
     [InlineData(A10CPerfCalculator.MAX_TAKEOFF_WEIGHT_LBS + 1, 6.0)]
     public void TakeoffGroundRun_GrossWeightOutOfRange_Throws(double grossWeight, double takeoffIndex)
     {
-        Assert.Throws<ArgumentOutOfRangeException>(() => _calc.TakeoffGroundRun(takeoffIndex, grossWeight ,0 ));
+        Assert.Throws<ArgumentOutOfRangeException>(() => _calc.TakeoffGroundRun(takeoffIndex, grossWeight, 0));
     }
 
     [Theory]
