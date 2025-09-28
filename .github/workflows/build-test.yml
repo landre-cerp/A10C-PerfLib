@@ -1,11 +1,12 @@
-name: .NET Build and Test
+name: Build et Test .NET
 
 on:
   push:
-    branches: [ main ]
+    branches: 
+      - '**'
 
 jobs:
-  build-and-test:
+  build-et-test:
     runs-on: ubuntu-latest
 
     steps:
