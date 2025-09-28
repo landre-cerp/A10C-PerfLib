@@ -30,7 +30,7 @@ public class QNH
             if (Unit == QNH_Unit.inHg)
                 return Value;
             // Conversion hPa -> inHg
-            return Math.Round(Value / STD_HPA * STD_INHG * 100) / 100;
+            return Math.Round(Value / STD_HPA * STD_INHG, 2);
         }
     }
 
