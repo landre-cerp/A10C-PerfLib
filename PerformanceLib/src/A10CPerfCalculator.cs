@@ -29,7 +29,7 @@ public partial class A10CPerfCalculator : IAircraftPerformanceCalculator
         };
     }
 
-    public double RequiredFanSpeed(double temperature,PressureAltitude alt, double grossWeight)
+    public double RequiredFanSpeed(double temperature, PressureAltitude alt, double grossWeight)
     {
         return 88.0 - 0.1 * (temperature - PerfCalculatorHelpers.StandardTemperature(alt)) + 0.0005 * (grossWeight - 22000);
 
