@@ -9,10 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="docs\**" />
+    <EmbeddedResource Remove="docs\**" />
+    <None Remove="docs\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="docs\" />
+    <Compile Remove="C:\Users\Laurent\.nuget\packages\microsoft.visualstudio.diagnosticshub.benchmarkdotnetdiagnosers\18.0.36525.3\contentFiles\cs\any\BenchmarkProfilerAgentConfig.g.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -16,7 +16,7 @@ namespace A10CPerfTests
             double expected)
         {
             var result = new PressureAltitude(indicatedAltitudeFt, new HpaQNH(hpa));
-            Assert.InRange(Math.Ceiling(result.Feet), expected -1 , expected +1);
+            Assert.InRange(Math.Ceiling(result.Feet), expected - 1 , expected + 1);
         }
 
         [Fact]
