@@ -1,6 +1,5 @@
 using a10c_perf_lib.src;
 
-
 namespace a10c_perf_lib.Tests;
 
 public class A10CPerfCalculatorTests
@@ -27,7 +26,7 @@ public class A10CPerfCalculatorTests
     public void TakeOffSpeed_ReturnsExpected(double grossWeight, double expected)
     {
         double result = _calc.TakeOffSpeed(grossWeight);
-        Assert.Equal(expected, result, 2); // 2 digits precision
+        Assert.Equal(expected, result, 2); 
     }
 
     [Theory]
@@ -36,10 +35,18 @@ public class A10CPerfCalculatorTests
     [InlineData(10, 2_000, 9.6)]
     [InlineData(20, 4_000, 8.6)]
     [InlineData(50, 6_000, 5.0)]
-    [InlineData(5, 1_000, 9.91)] // Interpolated value
+    [InlineData(5, 1_000, 9.91)] 
     public void GetTakeoffIndex_ReturnsExpected(double tempC, double altFt, double expected)
     {
-        double result = A10CPerfCalculator.GetTakeoffIndex(tempC, altFt);
-        Assert.Equal(expected, result, 1); // 2 digits precision
+        double result = A10CPerfCalculator.GetTakeoffIndex(tempC, new PressureAltitude(altFt, QNH.StdInHg), A10CPerfCalculator.FLAPS.TO);
+        Assert.Equal(expected, result, 1); 
     }
+
+    [Theory]
+    [InlineData(-30, 0)]
+    public void GetTakeoffIndex_InvalidFlaps_Throws(double tempC, double altFt)
+    {
+        Assert.Throws<ArgumentException>(() => A10CPerfCalculator.GetTakeoffIndex(tempC, new PressureAltitude(altFt, QNH.StdInHg), A10CPerfCalculator.FLAPS.UP));
+    }
+
 }
