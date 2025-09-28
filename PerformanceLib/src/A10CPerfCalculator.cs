@@ -70,7 +70,7 @@ public partial class A10CPerfCalculator : IAircraftPerformanceCalculator
     /// </summary>
     /// <param name="grossWeight">Grossweight in lbs</param>
     /// <returns>Rotation speed known as V1</returns>
-    public double RotationSpeed(double grossWeight , FLAPS flaps)
+    public double RotationSpeed(double grossWeight, FLAPS flaps)
     {
         return TakeOffSpeed(grossWeight, flaps) - 10;
     }
