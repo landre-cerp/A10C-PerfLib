@@ -52,25 +52,37 @@ public class A10CPerfCalculatorTests
     [InlineData(10, 2_000, 9.6)]
     [InlineData(20, 4_000, 8.6)]
     [InlineData(50, 6_000, 5.0)]
-    public void GetTakeoffIndex_ReturnsExpected(double tempC, double altFt, double expected)
+    public void GetTakeoffIndex_MaxThrust_ReturnsExpected(double tempC, double altFt, double expected)
     {
-        double result = A10CPerfCalculator.GetTakeoffIndex(tempC, new PressureAltitude(altFt, QNH.StdInHg), A10CPerfCalculator.FLAPS.TO);
+        double result = A10CPerfCalculator.GetTakeoffIndex(
+            tempC, 
+            new PressureAltitude(altFt, QNH.StdInHg));
+
         Assert.Equal(expected, result, 1); 
     }
 
     [Theory]
-    [InlineData(-30, 0)]
-    public void GetTakeoffIndex_InvalidFlaps_Throws(double tempC, double altFt)
+    [InlineData(-30, 0, 10.71)]
+    [InlineData(0, 2_000, 9.40)]
+    [InlineData(10, 2_000, 9.00)]
+    [InlineData(20, 4_000, 7.60)]
+    [InlineData(50, 5_000, 4.40)]
+    public void GetTakeoffIndex_Three_Percent_Below_ReturnsExpected(double tempC, double altFt, double expected)
     {
-        Assert.Throws<ArgumentException>(() => A10CPerfCalculator.GetTakeoffIndex(tempC, new PressureAltitude(altFt, QNH.StdInHg), A10CPerfCalculator.FLAPS.UP));
+        double result = A10CPerfCalculator.GetTakeoffIndex(
+            tempC,
+            new PressureAltitude(altFt, QNH.StdInHg), false);
+
+        Assert.Equal(expected, result, 1);
     }
+
 
     [Theory]
     [InlineData(-31)]
     [InlineData(51)]
     public void GetTakeoffIndex_TemperatureOutOfRange_Throws(double tempC)
     {
-        Assert.Throws<ArgumentOutOfRangeException>(() => A10CPerfCalculator.GetTakeoffIndex(tempC, new PressureAltitude(0, QNH.StdInHg), A10CPerfCalculator.FLAPS.TO));
+        Assert.Throws<ArgumentOutOfRangeException>(() => A10CPerfCalculator.GetTakeoffIndex(tempC, new PressureAltitude(0, QNH.StdInHg)));
     }
 
     [Theory]
@@ -79,8 +91,7 @@ public class A10CPerfCalculatorTests
     public void GetTakeoffIndex_AltitudeOutOfRange_Throws(double altFt)
     {
         Assert.Throws<ArgumentOutOfRangeException>(() => A10CPerfCalculator.GetTakeoffIndex(
-            0, 
-            new PressureAltitude(altFt, QNH.StdInHg), 
-            A10CPerfCalculator.FLAPS.TO));
+            0,
+            new PressureAltitude(altFt, QNH.StdInHg)));
     }
 }

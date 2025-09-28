@@ -35,13 +35,20 @@ public partial class A10CPerfCalculator : IAircraftPerformanceCalculator
 
     }
 
+    public double TakeOffSpeed(double Grossweight)
+    {
+        return TakeOffSpeed(Grossweight, FLAPS.TO);
+    }
+
     /// <summary>
     /// Take Off Speed in Knots
     /// </summary>
     /// <param name="Grossweight">Grossweight in Lbs</param>
     /// <returns>Speed in Knots</returns>
-    public double TakeOffSpeed(double Grossweight)
+    public double TakeOffSpeed(double Grossweight, FLAPS flaps)
     {
+        if (flaps != FLAPS.TO)
+            throw new ArgumentException("Flaps configuration not yet handled");
         if (Grossweight < EMPTY_WEIGHT_LBS || Grossweight > MAX_TAKEOFF_WEIGHT_LBS)
             throw new ArgumentOutOfRangeException(nameof(Grossweight), $"Grossweight out of range ({EMPTY_WEIGHT_LBS} to {MAX_TAKEOFF_WEIGHT_LBS} lbs)");
         double w = Grossweight;
@@ -49,13 +56,23 @@ public partial class A10CPerfCalculator : IAircraftPerformanceCalculator
     }
 
     /// <summary>
+    /// Get the rotation speed for Takeoff with flaps TO (7°)
+    /// </summary>
+    /// <param name="grossWeight">Grossweight in lbs</param>
+    /// <returns>Speed in Knots</returns>
+    public double RotationSpeed(double grossWeight)
+    {
+        return RotationSpeed(grossWeight, FLAPS.TO);
+    }
+
+    /// <summary>
     /// Rotation Speed in Knots is approximately 10 knots less than Takeoff Speed
     /// </summary>
     /// <param name="grossWeight">Grossweight in lbs</param>
     /// <returns>Rotation speed known as V1</returns>
-    public double RotationSpeed(double grossWeight)
+    public double RotationSpeed(double grossWeight, FLAPS flaps)
     {
-        return TakeOffSpeed(grossWeight) - 10;
+        return TakeOffSpeed(grossWeight, flaps) - 10;
     }
 
     /// <summary>
@@ -66,19 +83,24 @@ public partial class A10CPerfCalculator : IAircraftPerformanceCalculator
     /// <param name="flaps">Flaps configuration, only TO (TakeOff) is supported</param>
     /// <returns></returns>
 
-    public static double GetTakeoffIndex(double tempC, PressureAltitude altitude, FLAPS flaps)
+    public static double GetTakeoffIndex(double tempC, PressureAltitude altitude, bool isMaxThrust = true)
     {
 
-        if (flaps != FLAPS.TO)
-            throw new ArgumentException("Flaps configuration not yet handled");
         if (tempC < -30 || tempC > 50)
             throw new ArgumentOutOfRangeException(nameof(tempC), "Temperature out of range (-30 to 50 °C)");
-        if (altitude.Feet < 0 || altitude.Feet > 6000)
+
+        if (isMaxThrust && ( altitude.Feet < 0 || altitude.Feet > 6000))
             throw new ArgumentOutOfRangeException(nameof(altitude), "Altitude out of range (0 to 6000 ft)");
 
+        if (!isMaxThrust && (altitude.Feet < 0 || altitude.Feet > 5000))
+            throw new ArgumentOutOfRangeException(nameof(altitude), "3% Below, Altitude out of range (0 to 5000 ft)");
+
+
         double altK = altitude.Feet / 1000.0;
-        var takeoffIndex = PerfCalculatorHelpers.BilinearInterpolate(TakeOffIndexMaxThrust, Temps, Alts, tempC, altK);
-        
+        var takeoffIndex = PerfCalculatorHelpers.BilinearInterpolate(
+            isMaxThrust ? TakeOffIndexMaxThrust : TakeOffIndexThreePercentBelow, 
+            Temps, Alts, tempC, altK);
+
         return Math.Clamp(takeoffIndex, 4.0, 11.0);
     }
 
