@@ -1,4 +1,5 @@
-﻿using perf_lib;
+﻿using a10c_perf_lib.src;
+
 namespace a10c_perf_lib;
 
 public partial class A10CPerfCalculator : IAicraftPerformanceCalculator
