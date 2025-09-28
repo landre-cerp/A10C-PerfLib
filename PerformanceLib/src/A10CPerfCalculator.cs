@@ -77,7 +77,7 @@ public partial class A10CPerfCalculator : IAircraftPerformanceCalculator
 
     public static double RCRWithoutAntiSkid(RCR rcr)
     {
-        return 0.695 * (double)rcr + 6.15e-3;
+        return 0.695 * (double)rcr;
     }
 
 }
