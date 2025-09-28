@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "a10c-perf-lib", "PerformanceLib\a10c-perf-lib.csproj", "{3B42F897-80B4-456C-BC71-396AE283ECAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A10CPerfTests", "PerformanceLibTests\A10CPerfTests.csproj", "{5213AA42-9DAA-A8AB-2BC7-2FC39DB947FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B42F897-80B4-456C-BC71-396AE283ECAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B42F897-80B4-456C-BC71-396AE283ECAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B42F897-80B4-456C-BC71-396AE283ECAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B42F897-80B4-456C-BC71-396AE283ECAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5213AA42-9DAA-A8AB-2BC7-2FC39DB947FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5213AA42-9DAA-A8AB-2BC7-2FC39DB947FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5213AA42-9DAA-A8AB-2BC7-2FC39DB947FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5213AA42-9DAA-A8AB-2BC7-2FC39DB947FE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DBFB7B3E-C946-4F6B-A184-BE355A4BB752}
+	EndGlobalSection
+EndGlobal
