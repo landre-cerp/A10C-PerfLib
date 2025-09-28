@@ -2,7 +2,7 @@
 
 public partial class A10CPerfCalculator : IAircraftPerformanceCalculator
 {
-    public const double EMPTY_WEIGHT_LBS= 25629;
+    public const double EMPTY_WEIGHT_LBS = 25629;
     public const double MAX_TAKEOFF_WEIGHT_LBS = 46476;
 
     /// <summary>
