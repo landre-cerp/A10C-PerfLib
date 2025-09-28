@@ -1,6 +1,6 @@
 ﻿namespace a10c_perf_lib.src
 {
-    internal interface IAicraftPerformanceCalculator
+    internal interface IAircraftPerformanceCalculator
     {
         public double TakeOffSpeed(double Grossweight);
     }
