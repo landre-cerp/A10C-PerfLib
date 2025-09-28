@@ -58,7 +58,7 @@ public partial class A10CPerfCalculator : IAircraftPerformanceCalculator
     /// <summary>
     /// Get the rotation speed for Takeoff with flaps TO (7°)
     /// </summary>
-    /// <param name="grossWeight">Grossweight ins lbs</param>
+    /// <param name="grossWeight">Grossweight in lbs</param>
     /// <returns>Speed in Knots</returns>
     public double RotationSpeed(double grossWeight)
     {
