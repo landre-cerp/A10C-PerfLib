@@ -56,7 +56,7 @@ public partial class A10CPerfCalculator : IAircraftPerformanceCalculator
     }
 
     /// <summary>
-    /// Get the rotation speed for for Takeoff with flaps TO (7°)
+    /// Get the rotation speed for Takeoff with flaps TO (7°)
     /// </summary>
     /// <param name="grossWeight">Grossweight ins lbs</param>
     /// <returns>Speed in Knots</returns>
