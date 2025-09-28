@@ -1,5 +1,5 @@
-using a10c_perf_lib;
-using Xunit;
+using a10c_perf_lib.src;
+
 
 namespace a10c_perf_lib.Tests;
 
