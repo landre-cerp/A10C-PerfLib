@@ -2,7 +2,6 @@
 
 internal static class PerfCalculatorHelpers
 {
-
     public static double BilinearInterpolate(
         double[,] matrix,
         double[] xAxis,
@@ -36,5 +35,15 @@ internal static class PerfCalculatorHelpers
             if (val >= arr[i] && val <= arr[i + 1])
                 return i;
         return arr.Length - 2; // extrapolation simple
+    }
+
+    public static double StandardTemperature(PressureAltitude altitudeFt)
+    {
+        return 15 - 1.98e-3 * altitudeFt.Feet;
+    }
+
+    public static double DeltaFromStandardTemperature(PressureAltitude altitudeFt, double actualTempC)
+    {
+        return actualTempC - StandardTemperature(altitudeFt);
     }
 }
