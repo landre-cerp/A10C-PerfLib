@@ -1,4 +1,4 @@
-﻿namespace perf_lib;
+﻿namespace a10c_perf_lib.src;
 
 internal static class PerfCalculatorHelpers
 {
