@@ -29,12 +29,6 @@ public partial class A10CPerfCalculator : IAircraftPerformanceCalculator
         };
     }
 
-    public double RequiredFanSpeed(double temperature, PressureAltitude alt, double grossWeight)
-    {
-        return 88.0 - 0.1 * (temperature - PerfCalculatorHelpers.StandardTemperature(alt)) + 0.0005 * (grossWeight - 22000);
-
-    }
-
     public double TakeOffSpeed(double Grossweight)
     {
         return TakeOffSpeed(Grossweight, FLAPS.TO);
@@ -83,7 +77,7 @@ public partial class A10CPerfCalculator : IAircraftPerformanceCalculator
     /// <param name="flaps">Flaps configuration, only TO (TakeOff) is supported</param>
     /// <returns></returns>
 
-    public static double GetTakeoffIndex(double tempC, PressureAltitude altitude, bool isMaxThrust = true)
+    public static double TakeoffIndex(double tempC, PressureAltitude altitude, bool isMaxThrust = true)
     {
 
         if (tempC < -30 || tempC > 50)
