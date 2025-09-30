@@ -52,7 +52,21 @@ public partial class PerfCalculator
         { 800,1200,1600,2000,2500 } // 11
     };
 
-    internal static readonly double[,] GroundRunWindCorrection =
+    internal static readonly double[,] CriticalFieldLengthTable =
+    {
+        // 30, 35, 40, 45, 50
+        // FALSE DATA AI completed not yet verified
+        { 5500, 8200, 12000, 18000 , -1 },// 4
+        { 4800, 7000, 10000, 15000, -1 },// 5
+        { 4200, 6000,8500, 13000, -1 },// 6
+        { 3600, 5200,7500, 11000,15000  },// 7
+        { 2900, 4300,6200, 9000,12000 },// 8
+        { 2300, 3400,4900, 7000,9500 },// 9
+        { 1700, 2500,3600,5000,7000},// 10
+        { 1000,1500,2000,3000,4000 } // 11
+    };
+
+    internal static readonly double[,] GroundWindCorrection =
     {
         // -20, -10, 0, 10, 20, 30, 40
         {  1400,  1200,  1000,   800,   700,  550,  400 }, // 1

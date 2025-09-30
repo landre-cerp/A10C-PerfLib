@@ -14,8 +14,8 @@ public class TakeoffIndexTests
     [InlineData(50, 6_000, 5.0)]
     public void GetTakeoffIndex_MaxThrust_ReturnsExpected(double tempC, double altFt, double expected)
     {
-        double result = PerfCalculator.TakeoffIndex(
-            tempC, 
+        TakeoffIndex result = PerfCalculator.CalcTakeoffIndex(
+            tempC,
             new PressureAltitude(altFt, QNH.StdInHg));
 
         Assert.Equal(expected, result, 1); 
@@ -29,7 +29,7 @@ public class TakeoffIndexTests
     [InlineData(50, 5_000, 4.40)]
     public void GetTakeoffIndex_Three_Percent_Below_ReturnsExpected(double tempC, double altFt, double expected)
     {
-        double result = PerfCalculator.TakeoffIndex(
+        TakeoffIndex result = PerfCalculator.CalcTakeoffIndex(
             tempC,
             new PressureAltitude(altFt, QNH.StdInHg), false);
 
@@ -42,7 +42,7 @@ public class TakeoffIndexTests
     [InlineData(51)]
     public void GetTakeoffIndex_TemperatureOutOfRange_Throws(double tempC)
     {
-        Assert.Throws<ArgumentOutOfRangeException>(() => PerfCalculator.TakeoffIndex(tempC, new PressureAltitude(0, QNH.StdInHg)));
+        Assert.Throws<ArgumentOutOfRangeException>(() => PerfCalculator.CalcTakeoffIndex(tempC, new PressureAltitude(0, QNH.StdInHg)));
     }
 
     [Theory]
@@ -50,7 +50,7 @@ public class TakeoffIndexTests
     [InlineData(6001)]
     public void GetTakeoffIndex_AltitudeOutOfRange_Throws(double altFt)
     {
-        Assert.Throws<ArgumentOutOfRangeException>(() => PerfCalculator.TakeoffIndex(
+        Assert.Throws<ArgumentOutOfRangeException>(() => PerfCalculator.CalcTakeoffIndex(
             0,
             new PressureAltitude(altFt, QNH.StdInHg)));
     }
