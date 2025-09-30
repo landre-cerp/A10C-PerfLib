@@ -1,6 +1,6 @@
 ﻿namespace a10c_perf_lib.src;
 
-public partial class A10CPerfCalculator : IAircraftPerformanceCalculator
+public partial class PerfCalculator 
 {
     public const double EMPTY_WEIGHT_LBS = 25629;
     public const double MAX_TAKEOFF_WEIGHT_LBS = 46476;

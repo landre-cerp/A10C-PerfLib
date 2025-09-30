@@ -1,6 +1,6 @@
 ﻿using a10c_perf_lib.src;
 
-namespace A10CPerfTests
+namespace CommonToolsTests
 {
     public class CommonToolsTests
     {
