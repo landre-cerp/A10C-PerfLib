@@ -19,6 +19,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="build-test.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include=".github\workflow\build-and-test.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <!-- Added BenchmarkDotNet for performance benchmarking -->
     <PackageReference Include="BenchmarkDotNet" Version="0.15.4" />
     <PackageReference Include="Microsoft.VisualStudio.DiagnosticsHub.BenchmarkDotNetDiagnosers" Version="18.0.36525.3" />

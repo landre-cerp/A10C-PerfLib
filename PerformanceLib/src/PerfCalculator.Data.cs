@@ -33,7 +33,8 @@ public partial class PerfCalculator
 
     internal static readonly double[] Temps = { -30, -20, -10, 0, 10, 20, 30, 40, 50 };
     internal static readonly double[] Alts = { 0, 2, 4, 6 };
-    internal static readonly double[] takeoffindexes = { 4, 4.2, 5, 6, 7, 8, 9, 10, 11 };
+    internal static readonly double[] takeoffindexesExtd = { 4, 4.2, 5, 6, 7, 8, 9, 10, 11 };
+    internal static readonly double[] takeoffindexes = { 4, 5, 6, 7, 8, 9, 10, 11 };
     internal static readonly double[] Grossweights = {30000 , 35000, 40000, 45000, 50000 };
     internal static readonly double[] GroundRunWinds = { -20, -10, 0, 10, 20, 30, 40 };
     internal static readonly double[] distances = { 1000, 2000, 3000 ,4000 ,5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000 };
@@ -52,7 +53,20 @@ public partial class PerfCalculator
         { 800,1200,1600,2000,2500 } // 11
     };
 
-    internal static readonly double[,] GroundRunWindCorrection =
+    internal static readonly double[,] CriticalFieldLengthTable =
+    {
+        // 30, 35, 40, 45, 50
+        { 6500,   -1,   -1,   -1,    -1 },// 4
+        { 5860, 8640,   -1,   -1,    -1 },// 5
+        { 5185, 7430,   -1,   -1,    -1 },// 6
+        { 4500, 6300, 8700,   -1,    -1  },// 7
+        { 3800, 5270, 7175, 9845,    -1 },// 8
+        { 3100, 4230, 5700, 7530, 10180 },// 9
+        { 2400, 3200, 4200, 5340,  6920 },// 10
+        { 1670, 2200, 2740, 3260,  3920 } // 11
+    };
+
+    internal static readonly double[,] GroundWindCorrection =
     {
         // -20, -10, 0, 10, 20, 30, 40
         {  1400,  1200,  1000,   800,   700,  550,  400 }, // 1
