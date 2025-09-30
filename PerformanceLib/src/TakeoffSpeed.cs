@@ -2,7 +2,7 @@
 
 public partial class PerfCalculator
 {
-    public double TakeOffSpeed(double Grossweight)
+    public static double TakeOffSpeed(double Grossweight)
     {
         return TakeOffSpeed(Grossweight, FLAPS.TO);
     }
@@ -12,7 +12,7 @@ public partial class PerfCalculator
     /// </summary>
     /// <param name="Grossweight">Grossweight in Lbs</param>
     /// <returns>Speed in Knots</returns>
-    public double TakeOffSpeed(double Grossweight, FLAPS flaps)
+    public static double TakeOffSpeed(double Grossweight, FLAPS flaps)
     {
         if (flaps != FLAPS.TO)
             throw new ArgumentException("Flaps configuration not yet handled");

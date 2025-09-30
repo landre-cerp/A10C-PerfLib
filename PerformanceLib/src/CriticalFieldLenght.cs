@@ -7,9 +7,6 @@ public partial class PerfCalculator
     /// </summary>
     public static double CriticalFieldLength(TakeoffIndex takeoffIndex, GrossWeight grossWeight, double windspeed, FLAPS flaps, RCR rcr)
     {
-        if (flaps != FLAPS.TO)
-            throw new ArgumentException("Flaps configuration not yet handled");
-
         double criticalFieldLength = PerfCalculatorHelpers.BilinearInterpolate(
             CriticalFieldLengthTable,
             takeoffindexes, 
@@ -30,11 +27,11 @@ public partial class PerfCalculator
 
         if (flaps == FLAPS.UP)
         {
-            // increase by 7%
+            criticalFieldLength *= 1.07; 
         }
         // same with speedbrakes not opened + 7% 
 
-        throw new NotImplementedException("Critical Field Length calculation not yet implemented");
+        return criticalFieldLength;
     }
 
     // Overload pour compatibilité

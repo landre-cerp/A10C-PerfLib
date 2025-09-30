@@ -11,11 +11,11 @@ public partial class PerfCalculator
     /// <returns>The required distance to takeoff </returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     /// <exception cref="Exception"></exception>
-    public double TakeoffGroundRun(TakeoffIndex takeoffIndex, GrossWeight grossWeight, double windSpeed)
+    public static double TakeoffGroundRun(TakeoffIndex takeoffIndex, GrossWeight grossWeight, double windSpeed)
     {
         double groundRun = PerfCalculatorHelpers.BilinearInterpolate(
             TakeoffGroundRunTable,
-            takeoffindexes,
+            takeoffindexesExtd,
             Grossweights,
             takeoffIndex,
             grossWeight);
@@ -37,7 +37,7 @@ public partial class PerfCalculator
     }
 
     // Overload pour compatibilité
-    public double TakeoffGroundRun(double takeoffIndex, double grossWeight, double windSpeed)
+    public static double TakeoffGroundRun(double takeoffIndex, double grossWeight, double windSpeed)
     {
         return TakeoffGroundRun(new TakeoffIndex(takeoffIndex), new GrossWeight(grossWeight), windSpeed);
     }
