@@ -34,7 +34,6 @@ public partial class PerfCalculator
         return criticalFieldLength;
     }
 
-    // Overload pour compatibilité
     public static double CriticalFieldLength(double takeoffIndex, double grossWeight, double windspeed, FLAPS flaps, RCR rcr)
     {
         return CriticalFieldLength(new TakeoffIndex(takeoffIndex), new GrossWeight(grossWeight), windspeed, flaps, rcr);

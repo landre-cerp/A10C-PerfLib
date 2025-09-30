@@ -36,7 +36,6 @@ public partial class PerfCalculator
         return groundRun;
     }
 
-    // Overload pour compatibilité
     public static double TakeoffGroundRun(double takeoffIndex, double grossWeight, double windSpeed)
     {
         return TakeoffGroundRun(new TakeoffIndex(takeoffIndex), new GrossWeight(grossWeight), windSpeed);
