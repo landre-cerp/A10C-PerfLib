@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace a10c_perf_lib.src;
+﻿namespace a10c_perf_lib.src;
 
 public enum QNH_Unit
 {

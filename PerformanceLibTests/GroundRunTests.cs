@@ -2,9 +2,9 @@ using a10c_perf_lib.src;
 
 namespace a10c_perf_lib.Tests;
 
-public class A10CGroundRunTests
+public class GroundRunTests
 {
-    private readonly A10CPerfCalculator _calc = new();
+    private readonly PerfCalculator _calc = new();
 
     [Theory]
     [InlineData(4.0, 30000, 4500)]
@@ -30,8 +30,8 @@ public class A10CGroundRunTests
     }
 
     [Theory]
-    [InlineData(A10CPerfCalculator.EMPTY_WEIGHT_LBS - 1, 6.0)]
-    [InlineData(A10CPerfCalculator.MAX_TAKEOFF_WEIGHT_LBS + 1, 6.0)]
+    [InlineData(PerfCalculator.EMPTY_WEIGHT_LBS - 1, 6.0)]
+    [InlineData(PerfCalculator.MAX_TAKEOFF_WEIGHT_LBS + 1, 6.0)]
     public void TakeoffGroundRun_GrossWeightOutOfRange_Throws(double grossWeight, double takeoffIndex)
     {
         Assert.Throws<ArgumentOutOfRangeException>(() => _calc.TakeoffGroundRun(takeoffIndex, grossWeight, 0));

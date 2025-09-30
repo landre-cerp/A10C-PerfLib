@@ -1,6 +1,6 @@
 ﻿namespace a10c_perf_lib.src;
 
-public partial class A10CPerfCalculator
+public partial class PerfCalculator
 {
     /// <summary>
     /// Calculate the Takeoff Ground Run in Feet

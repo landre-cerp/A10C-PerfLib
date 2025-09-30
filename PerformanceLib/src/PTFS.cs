@@ -1,8 +1,6 @@
-﻿
+﻿namespace a10c_perf_lib.src;
 
-namespace a10c_perf_lib.src;
-
-public partial class A10CPerfCalculator
+public partial class PerfCalculator
 {
     /// <summary>
     /// Seal Level Predicted Fan Speed (PTFS)
