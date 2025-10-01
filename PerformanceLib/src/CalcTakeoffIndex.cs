@@ -18,7 +18,7 @@ public partial class PerfCalculator
         double altK = altitude.Feet / 1000.0;
         var takeoffIndex = PerfCalculatorHelpers.BilinearInterpolate(
             isMaxThrust ? TakeOffIndexMaxThrust : TakeOffIndexThreePercentBelow,
-            Temps, Alts, tempC, altK);
+            AxisTemps, AxisAlts, tempC, altK);
 
         return new TakeoffIndex(Math.Clamp(takeoffIndex, 4.0, 11.0));
     }

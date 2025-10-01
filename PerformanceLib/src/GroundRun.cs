@@ -15,8 +15,8 @@ public partial class PerfCalculator
     {
         double groundRun = PerfCalculatorHelpers.BilinearInterpolate(
             TakeoffGroundRunTable,
-            takeoffindexesExtd,
-            Grossweights,
+            AxisTakeoffIndexesExtd,
+            AxisWeights,
             takeoffIndex,
             grossWeight);
         
@@ -28,10 +28,8 @@ public partial class PerfCalculator
 
         groundRun = PerfCalculatorHelpers.BilinearInterpolate(
             GroundWindCorrection,
-            distances,
-            GroundRunWinds,
-            groundRun,
-            windSpeed);
+            AxisDistances14, AxisWinds,
+            groundRun, windSpeed);
 
         return groundRun;
     }
