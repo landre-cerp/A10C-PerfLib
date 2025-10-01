@@ -35,11 +35,11 @@ public partial class PerfCalculator
     internal static readonly double[] AxisAlts = { 0, 2, 4, 6 };
     internal static readonly double[] AxisTakeoffIndexesExtd = { 4, 4.2, 5, 6, 7, 8, 9, 10, 11 };
     internal static readonly double[] AxisTakeoffIndexes = { 4, 5, 6, 7, 8, 9, 10, 11 };
-    internal static readonly double[] AxisWeights = {30000 , 35000, 40000, 45000, 50000 };
+    internal static readonly double[] AxisWeights = { 30000, 35000, 40000, 45000, 50000 };
     internal static readonly double[] AxisWinds = { -20, -10, 0, 10, 20, 30, 40 };
-    internal static readonly double[] AxisDistances14 = { 1000, 2000, 3000 ,4000 ,5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000 };
+    internal static readonly double[] AxisDistances14 = { 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000 };
     internal static readonly double[] AxisDistances12 = { 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000};
-    internal static readonly double[] AxisRcrs = { 5 ,10 ,15 , 20,23 };
+    internal static readonly double[] AxisRcrs = { 5, 10, 15, 20, 23 };
 
     internal static readonly double[,] TakeoffGroundRunTable =
     {
