@@ -31,13 +31,15 @@ public partial class PerfCalculator
     };
 
 
-    internal static readonly double[] Temps = { -30, -20, -10, 0, 10, 20, 30, 40, 50 };
-    internal static readonly double[] Alts = { 0, 2, 4, 6 };
+    internal static readonly double[] AxisTemps = { -30, -20, -10, 0, 10, 20, 30, 40, 50 };
+    internal static readonly double[] AxisAlts = { 0, 2, 4, 6 };
     internal static readonly double[] takeoffindexesExtd = { 4, 4.2, 5, 6, 7, 8, 9, 10, 11 };
-    internal static readonly double[] takeoffindexes = { 4, 5, 6, 7, 8, 9, 10, 11 };
-    internal static readonly double[] Grossweights = {30000 , 35000, 40000, 45000, 50000 };
-    internal static readonly double[] GroundRunWinds = { -20, -10, 0, 10, 20, 30, 40 };
-    internal static readonly double[] distances = { 1000, 2000, 3000 ,4000 ,5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000 };
+    internal static readonly double[] AxisTakeoffIndexes = { 4, 5, 6, 7, 8, 9, 10, 11 };
+    internal static readonly double[] AxisWeights = {30000 , 35000, 40000, 45000, 50000 };
+    internal static readonly double[] AxisWinds = { -20, -10, 0, 10, 20, 30, 40 };
+    internal static readonly double[] AxisDistances14 = { 1000, 2000, 3000 ,4000 ,5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000 };
+    internal static readonly double[] AxisDistances12 = { 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000};
+    internal static readonly double[] AxisRcrs = { 23, 20, 15, 10, 5 };
 
     internal static readonly double[,] TakeoffGroundRunTable =
     {
@@ -83,6 +85,23 @@ public partial class PerfCalculator
         {    -1, 13480, 12000, 10640,  9370, 8180, 7100 }, // 12
         {    -1,    -1, 13000, 11590, 10180, 8900, 7710 }, // 13
         {    -1,    -1, 14000, 12430, 10980, 9620, 8400 }, // 14
+    };
+
+    internal static readonly double[,] rcrDistanceCorrection =
+    {
+       // 23,    20,    15,    10,  5
+        {  1,  1000,  1030,  1160, 1380}, // 1
+        {  2,  2000,  2130,  2370, 2820},
+        {  3,  3100,  3320,  3800, 4560},
+        {  4,  4200,  4600,  5250, 6400},
+        {  5,  5250,  5800,  6800, 8250},
+        {  6,  6300,  7150,  8200, 10200},
+        {  7,  7500,  8500,  9770, 12000},
+        {  8,  8500,  9700, 11300, -1},
+        {  9,  9600, 10900,    -1, -1},
+        { 10, 10900,    -1,    -1, -1},
+        { 11, 12000,    -1,    -1, -1},
+        { 12,    -1,    -1,    -1, -1} // 12
     };
 
 }
