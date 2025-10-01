@@ -27,7 +27,7 @@ public partial class PerfCalculator
             return groundRun; // no correction for short distances
 
         groundRun = PerfCalculatorHelpers.BilinearInterpolate(
-            GroundRunWindCorrection,
+            GroundWindCorrection,
             AxisDistances14, AxisWinds,
             groundRun, windSpeed);
 
