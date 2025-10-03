@@ -9,7 +9,6 @@ internal sealed class FiftyFootObstacleClearanceFlapsUpTable : CorrectionTable
     private static readonly double[] XAxis = { 0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000 };
     private static readonly double[] YAxis = { -20, 0, 20, 40 };
     
-    // FAKE DATA to be replaced with real data later.
     private static readonly double[,] Matrix =
     {
         // -20,     0     20,    40
