@@ -1,11 +1,9 @@
-using a10c_perf_lib.src;
+using static a10c_perf_lib.src.PerfCalculator;
 
 namespace a10c_perf_lib.Tests;
 
 public class PTFSTests
 {
-    private readonly PerfCalculator _calc = new();
-
     [Theory]
     [InlineData(-40, 85.1)]
     [InlineData(-35, 85.8)]
@@ -15,7 +13,7 @@ public class PTFSTests
     [InlineData(50, 77.6)]
     public void PTFS_ReturnsExpected(double temp, double expected)
     {
-        double result = _calc.PTFS(temp);
+        double result = PTFS(temp);
         Assert.InRange(result, expected - 0.5, expected + 0.5);
     }
 
@@ -24,6 +22,6 @@ public class PTFSTests
     [InlineData(51)]
     public void PTFS_OutOfRange_Throws(double temp)
     {
-        Assert.Throws<ArgumentOutOfRangeException>(() => _calc.PTFS(temp));
+        Assert.Throws<ArgumentOutOfRangeException>(() => PTFS(temp));
     }
 }

@@ -10,5 +10,6 @@ public partial class PerfCalculator
     internal static readonly CriticalFieldLengthTable CriticalFieldLengthTable = new();
     internal static readonly TakeoffIndexMaxThrustTable TakeoffIndexMaxThrustTable = new();
     internal static readonly TakeoffIndexThreePercentBelowTable TakeoffIndexThreePercentBelowTable = new();
-    internal static readonly TakeoffGroundRunTable TakeoffGroundRunTable = new();
+    internal static readonly TakeoffGroundRunTableFlapsTO TakeoffGroundRunTableFlapsTO = new();
+    internal static readonly TakeoffGroundRunTableFlapsUp TakeoffGroundRunTableFlapsUp = new();
 }
