@@ -14,11 +14,15 @@ public partial class PerfCalculator
     /// <returns>Speed in Knots</returns>
     public static double TakeOffSpeed(double Grossweight, FLAPS flaps)
     {
-        if (flaps != FLAPS.TO)
-            throw new ArgumentException("Flaps configuration not yet handled");
+        
         if (Grossweight < EMPTY_WEIGHT_LBS || Grossweight > MAX_TAKEOFF_WEIGHT_LBS)
             throw new ArgumentOutOfRangeException(nameof(Grossweight), $"Grossweight out of range ({EMPTY_WEIGHT_LBS} to {MAX_TAKEOFF_WEIGHT_LBS} lbs)");
+
         double w = Grossweight;
+
+        if (flaps == FLAPS.UP)
+            return 52.4 + w * (2.67e-3 + w * -1.1e-8);
+        
         return 43.8 + w * (3.11e-3 + w * (-2.38e-8 + w * 1.08e-13));
     }
 
@@ -27,9 +31,23 @@ public partial class PerfCalculator
     /// </summary>
     /// <param name="grossWeight">Grossweight in lbs</param>
     /// <returns>Speed in Knots</returns>
-    public double RotationSpeed(double grossWeight)
+    public static double RotationSpeed(double grossWeight)
     {
         return RotationSpeed(grossWeight, FLAPS.TO);
+    }
+
+    /// <summary>
+    /// Rotation Speed on a specific flaps configuration
+    /// </summary>
+    /// <param name="grossWeight"></param>
+    /// <param name="flaps"></param>
+    /// <returns></returns>
+    public static double RotationSpeed(GrossWeight grossWeight, FLAPS flaps)
+    {
+        if (FLAPS.UP != flaps && FLAPS.TO != flaps)
+            throw new ArgumentOutOfRangeException(nameof(flaps), "Rotation speed is not defined this Flaps configuration");
+
+        return RotationSpeed(grossWeight.Value, flaps);
     }
 
     /// <summary>
@@ -37,7 +55,7 @@ public partial class PerfCalculator
     /// </summary>
     /// <param name="grossWeight">Grossweight in lbs</param>
     /// <returns>Rotation speed known as V1</returns>
-    public double RotationSpeed(double grossWeight, FLAPS flaps)
+    public static double RotationSpeed(double grossWeight, FLAPS flaps)
     {
         return TakeOffSpeed(grossWeight, flaps) - 10;
     }
