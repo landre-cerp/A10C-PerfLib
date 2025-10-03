@@ -1,107 +1,14 @@
+using a10c_perf_lib.src.CorrectionTables;
+
 namespace a10c_perf_lib.src;
 
 public partial class PerfCalculator
 {
-    
-    internal static readonly double[,] TakeOffIndexMaxThrust =
-    {
-        { 10.80, 10.60, 10.22, 9.82 },// -30°C
-        { 10.70, 10.40, 10.10, 9.60 },
-        { 10.50, 10.20,  9.80, 9.37 },
-        { 10.25,  9.82,  9.50, 8.90 },
-        { 10.05,  9.60,  9.10, 8.40 },
-        {  9.75,  9.20,  8.60, 7.82 },
-        {  9.40,  8.70,  7.90, 7.10 },
-        {  8.80,  8.10,  7.20, 6.10 },
-        {  8.10,  7.21,  6.21, 5.00 } // 50°C
-    };
-
-
-    internal static readonly double[,] TakeOffIndexThreePercentBelow =
-    {
-        { 10.71, 10.40, 9.90, 9.41 },// -30°C
-        { 10.41, 10.00, 9.62, 9.18 },
-        { 10.21,  9.80, 9.40, 8.70 },
-        { 10.00,  9.40, 8.90, 8.20 },
-        {  9.60,  9.00, 8.41, 7.62 },
-        {  9.25,  8.78, 7.60, 6.85 },
-        {  8.80,  7.95, 7.00, 5.90 },
-        {  8.35,  7.20, 5.95, 4.70 },
-        {  7.20,  6.18, 4.80, 4.00} // 50°C
-    };
-
-
-    internal static readonly double[] AxisTemps = { -30, -20, -10, 0, 10, 20, 30, 40, 50 };
-    internal static readonly double[] AxisAlts = { 0, 2, 4, 6 };
-    internal static readonly double[] AxisTakeoffIndexesExtd = { 4, 4.2, 5, 6, 7, 8, 9, 10, 11 };
-    internal static readonly double[] AxisTakeoffIndexes = { 4, 5, 6, 7, 8, 9, 10, 11 };
-    internal static readonly double[] AxisWeights = { 30000, 35000, 40000, 45000, 50000 };
-    internal static readonly double[] AxisWinds = { -20, -10, 0, 10, 20, 30, 40 };
-    internal static readonly double[] AxisDistances14 = { 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000 };
-    internal static readonly double[] AxisDistances12 = { 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000};
-    internal static readonly double[] AxisRcrs = { 5, 10, 15, 20, 23 };
-
-    internal static readonly double[,] TakeoffGroundRunTable =
-    {
-        // 30, 35, 40, 45, 50
-        { 4500, 6800, 9900, 15000 , -1 },// 4
-        { 4450, 6650, 9700, 14000, -1 },// 4.2
-        { 4000, 5900, 8500, 12200, -1 },// 5
-        { 3500, 5100,7250, 10200, -1 },// 6
-        { 2980, 4300,6100, 8300,11700  },// 7
-        { 2400, 3500,4900, 6600,9200 },// 8
-        { 1900, 2750,3800, 5000,6900 },// 9
-        { 1350, 1950,2650,3500, 4600},// 10
-        { 800,1200,1600,2000,2500 } // 11
-    };
-
-    internal static readonly double[,] CriticalFieldLengthTable =
-    {
-        // 30, 35, 40, 45, 50
-        { 6500,   -1,   -1,   -1,    -1 },// 4
-        { 5860, 8640,   -1,   -1,    -1 },// 5
-        { 5185, 7430,   -1,   -1,    -1 },// 6
-        { 4500, 6300, 8700,   -1,    -1  },// 7
-        { 3800, 5270, 7175, 9845,    -1 },// 8
-        { 3100, 4230, 5700, 7530, 10180 },// 9
-        { 2400, 3200, 4200, 5340,  6920 },// 10
-        { 1670, 2200, 2740, 3260,  3920 } // 11
-    };
-
-    internal static readonly double[,] GroundWindCorrection =
-    {
-        // -20, -10, 0, 10, 20, 30, 40
-        {  1400,  1200,  1000,   800,   700,  550,  400 }, // 1
-        {  2630,  2300,  2000,  1700,  1450, 1190,  886 }, // 2
-        {  3870,  3410,  3000,  2600,  2235, 1860, 1530 }, // 3
-        {  5170,  4560,  4000,  3465,  2970, 2520, 2090 }, // 4
-        {  6430,  5700,  5000,  4350,  3770, 3215, 2690 }, // 5
-        {  7630,  6795,  6000,  5245,  4560, 3900, 3300 }, // 6
-        {  8790,  7880,  7000,  6080,  5270, 4550, 3890 }, // 7
-        { 10160,  9070,  8000,  6990,  6090, 5990, 4510 }, // 8
-        { 11320, 10140,  9000,  7890,  6890, 5990, 5150 }, // 9
-        { 12600, 11320, 10000,  8800,  7660, 6650, 5730 }, // 10
-        { 13800, 12380, 11000,  9750,  8570, 7465, 6425 }, // 11
-        {    -1, 13480, 12000, 10640,  9370, 8180, 7100 }, // 12
-        {    -1,    -1, 13000, 11590, 10180, 8900, 7710 }, // 13
-        {    -1,    -1, 14000, 12430, 10980, 9620, 8400 }, // 14
-    };
-
-    internal static readonly double[,] rcrDistanceCorrection =
-     {
-          // 5,     10,    15,    20,    23
-        { 1380,  1160,  1030,  1000,  1000}, // 1
-        { 2820,  2370,  2130,  2000,  2000},
-        { 4560,  3800,  3320,  3100,  3000},
-        { 6400,  5250,  4600,  4200,  4000},
-        { 8250,  6800,  5800,  5250,  5000},
-        {10200,  8200,  7150,  6300,  6000},
-        {12000,  9770,  8500,  7500,  7000},
-        {   -1, 11300,  9700,  8500,  8000},
-        {   -1,    -1, 10900,  9600,  9000},
-        {   -1,    -1,    -1, 10900, 10000},
-        {   -1,    -1,    -1, 12000, 11000},
-        {   -1,    -1,    -1,    -1, 12000} // 12
-    };
-
+    // Singleton instances of correction tables
+    internal static readonly GroundWindCorrectionTable GroundWindCorrection = new();
+    internal static readonly RcrDistanceCorrectionTable RcrDistanceCorrection = new();
+    internal static readonly CriticalFieldLengthTable CriticalFieldLengthTable = new();
+    internal static readonly TakeoffIndexMaxThrustTable TakeoffIndexMaxThrustTable = new();
+    internal static readonly TakeoffIndexThreePercentBelowTable TakeoffIndexThreePercentBelowTable = new();
+    internal static readonly TakeoffGroundRunTable TakeoffGroundRunTable = new();
 }

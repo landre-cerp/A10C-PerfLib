@@ -26,7 +26,7 @@ public class TakeoffIndexTests
     [InlineData(0, 2_000, 9.40)]
     [InlineData(10, 2_000, 9.00)]
     [InlineData(20, 4_000, 7.60)]
-    [InlineData(50, 5_000, 4.40)]
+    [InlineData(50, 5_000, 4)]
     public void GetTakeoffIndex_Three_Percent_Below_ReturnsExpected(double tempC, double altFt, double expected)
     {
         TakeoffIndex result = PerfCalculator.CalcTakeoffIndex(

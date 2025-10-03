@@ -7,30 +7,16 @@ public partial class PerfCalculator
     /// </summary>
     public static double CriticalFieldLength(TakeoffIndex takeoffIndex, GrossWeight grossWeight, double windspeed, FLAPS flaps, RCR rcr)
     {
-        double criticalFieldLength = PerfCalculatorHelpers.BilinearInterpolate(
-            CriticalFieldLengthTable,
-            AxisTakeoffIndexes, 
-            AxisWeights,
-            takeoffIndex, 
-            grossWeight);
+        // Base critical field length
+        double criticalFieldLength = CriticalFieldLengthTable.Interpolate(takeoffIndex, grossWeight);
 
         // Apply wind correction
-        criticalFieldLength = PerfCalculatorHelpers.BilinearInterpolate(
-            GroundWindCorrection,
-            AxisDistances14,
-            AxisWinds,
-            criticalFieldLength,
-            windspeed);
+        criticalFieldLength = GroundWindCorrection.Interpolate(criticalFieldLength, windspeed);
 
-        // Apply Runway Slope correction
+        // Apply Runway Slope correction (not implemented yet)
 
         // Apply RCR correction
-        criticalFieldLength = PerfCalculatorHelpers.BilinearInterpolate(
-            rcrDistanceCorrection,
-            AxisDistances12,
-            AxisRcrs,
-            criticalFieldLength,
-            (double)rcr);
+        criticalFieldLength = RcrDistanceCorrection.Interpolate(criticalFieldLength, (double)rcr);
 
         if (flaps == FLAPS.UP)
         {
