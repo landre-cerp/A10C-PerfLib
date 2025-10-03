@@ -16,9 +16,4 @@ public partial class PerfCalculator
         CorrectionTable tableToUse = flaps == FLAPS.UP ? _flapsUpTable : _flapsToTable;
         return tableToUse.Interpolate(groundRun, windspeed);
     }
-
-    public static double FiftyFootObstacleClearanceDistance(double takeoffIndex, double grossWeight, double windspeed, FLAPS flaps)
-    {
-        return FiftyFootObstacleClearanceDistance(new TakeoffIndex(takeoffIndex), new GrossWeight(grossWeight), windspeed, flaps);
-    }
 }

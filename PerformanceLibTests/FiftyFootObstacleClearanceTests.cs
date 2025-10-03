@@ -165,18 +165,4 @@ public class FiftyFootObstacleClearanceTests
         Assert.Equal(resultDry, resultIcy);
         Assert.True(resultDry > 0);
     }
-
-    [Theory]
-    [InlineData(4.0, 30000, 0, FLAPS.TO)] 
-    [InlineData(7.0, 35000, 10, FLAPS.UP)] 
-    [InlineData(9.0, 40000, -5, FLAPS.TO)] 
-    public void FiftyFootObstacleClearanceDistance_TakeoffIndexOverload_ReturnsValidValues(
-        double takeoffIndex, double grossWeight, double windspeed, FLAPS flaps)
-    {
-        var result = FiftyFootObstacleClearanceDistance(takeoffIndex, grossWeight, windspeed, flaps);
-        
-        // Should return positive values
-        Assert.True(result > 0);
-        Assert.True(result < 100000); // Sanity check
-    }
 }
