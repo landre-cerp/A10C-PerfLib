@@ -18,7 +18,7 @@ This is a work-in-progress library for DCS A-10C performance calculations.
 
 - 50 feet obstacle clearance distance 3% below PTFS (Flaps 7, Flaps 0)
 - Takeoff speed (Flaps 0)
-- Takeoff Ground run (distance)  with wind correction (Flaps 0)
+- Takeoff Ground run (distance) with wind correction (Flaps 0)
  
 
 ## Utils
