@@ -39,9 +39,9 @@ public partial class PerfCalculator
     /// <summary>
     /// Rotation Speed on a specific flaps configuration
     /// </summary>
-    /// <param name="grossWeight"></param>
-    /// <param name="flaps"></param>
-    /// <returns></returns>
+    /// <param name="grossWeight">Gross weight in pounds</param>
+    /// <param name="flaps">Flaps configuration</param>
+    /// <returns>Rotation speed in knots</returns>
     public static double RotationSpeed(GrossWeight grossWeight, FLAPS flaps)
     {
         if (FLAPS.UP != flaps && FLAPS.TO != flaps)
