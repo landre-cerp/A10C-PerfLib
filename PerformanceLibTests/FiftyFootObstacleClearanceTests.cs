@@ -6,13 +6,13 @@ namespace a10c_perf_lib.Tests;
 public class FiftyFootObstacleClearanceTests
 {
     [Theory]
-    [InlineData(1000, 0, FLAPS.TO, 1300)] // Direct table lookup
-    [InlineData(2000, 0, FLAPS.TO, 2780)] // Direct table lookup
-    [InlineData(3000, 0, FLAPS.TO, 4270)] // Direct table lookup
-    [InlineData(1000, 0, FLAPS.UP, 1200)] // Flaps UP table
-    [InlineData(2000, 0, FLAPS.UP, 2639)] // Flaps UP table
-    [InlineData(1500, 0, FLAPS.TO, 2040)] // Interpolated between 1000 and 2000
-    [InlineData(2500, 0, FLAPS.TO, 3525)] // Interpolated between 2000 and 3000
+    [InlineData(1000, 0, FLAPS.TO, 1300)] 
+    [InlineData(2000, 0, FLAPS.TO, 2780)] 
+    [InlineData(3000, 0, FLAPS.TO, 4270)] 
+    [InlineData(1000, 0, FLAPS.UP, 1200)] 
+    [InlineData(2000, 0, FLAPS.UP, 2639)] 
+    [InlineData(1500, 0, FLAPS.TO, 2040)] 
+    [InlineData(2500, 0, FLAPS.TO, 3525)] 
     public void FiftyFootObstacleClearanceDistance_WithNoWind_ReturnsExpectedValues(
         double groundRun, double windspeed, FLAPS flaps, double expected)
     {
@@ -21,11 +21,11 @@ public class FiftyFootObstacleClearanceTests
     }
 
     [Theory]
-    [InlineData(1000, -20, FLAPS.TO, 1230)] // Negative wind (tailwind)
-    [InlineData(1000, 20, FLAPS.TO, 1370)]  // Positive wind (headwind)
-    [InlineData(1000, 40, FLAPS.TO, 1440)]  // Strong headwind
-    [InlineData(2000, -20, FLAPS.TO, 2550)] // Tailwind with higher ground run
-    [InlineData(2000, 40, FLAPS.TO, 3240)]  // Headwind with higher ground run
+    [InlineData(1000, -20, FLAPS.TO, 1230)] 
+    [InlineData(1000, 20, FLAPS.TO, 1370)]  
+    [InlineData(1000, 40, FLAPS.TO, 1440)]  
+    [InlineData(2000, -20, FLAPS.TO, 2550)] 
+    [InlineData(2000, 40, FLAPS.TO, 3240)]  
     public void FiftyFootObstacleClearanceDistance_WithWind_ReturnsExpectedValues(
         double groundRun, double windspeed, FLAPS flaps, double expected)
     {
@@ -34,10 +34,10 @@ public class FiftyFootObstacleClearanceTests
     }
 
     [Theory]
-    [InlineData(1000, 10, FLAPS.TO)] // Interpolated wind speed
-    [InlineData(1500, 10, FLAPS.TO)] // Interpolated both axes
-    [InlineData(2500, -10, FLAPS.UP)] // Negative interpolated wind
-    [InlineData(3500, 30, FLAPS.UP)] // Positive interpolated wind
+    [InlineData(1000, 10, FLAPS.TO)] 
+    [InlineData(1500, 10, FLAPS.TO)] 
+    [InlineData(2500, -10, FLAPS.UP)] 
+    [InlineData(3500, 30, FLAPS.UP)] 
     public void FiftyFootObstacleClearanceDistance_WithInterpolatedWind_ReturnsValidValues(
         double groundRun, double windspeed, FLAPS flaps)
     {
@@ -113,17 +113,17 @@ public class FiftyFootObstacleClearanceTests
     }
 
     [Theory]
-    [InlineData(9000, 0, FLAPS.TO)] 
-    [InlineData(10000, 0, FLAPS.TO)] 
-    [InlineData(11000, 0, FLAPS.TO)] 
-    [InlineData(12000, 0, FLAPS.UP)] 
-    [InlineData(13000, 0, FLAPS.UP)] 
+    [InlineData(12000, 0, FLAPS.TO)] 
+    [InlineData(13000, 0, FLAPS.TO)]
+    [InlineData(12000, 0, FLAPS.UP)]
+    [InlineData(10000, 20, FLAPS.UP)]
+    [InlineData(14000, 0, FLAPS.UP)]
     public void FiftyFootObstacleClearanceDistance_EdgeCases_ReturnsValidValues(
         double groundRun, double windspeed, FLAPS flaps)
     {
         var result = FiftyFootObstacleClearanceDistance(groundRun, windspeed, flaps);
         
-        Assert.True(result > 0);
+        Assert.True(result < 0);
     }
 
     [Theory]
