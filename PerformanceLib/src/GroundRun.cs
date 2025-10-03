@@ -1,4 +1,6 @@
-﻿namespace a10c_perf_lib.src;
+﻿using a10c_perf_lib.src.CorrectionTables;
+
+namespace a10c_perf_lib.src;
 
 public partial class PerfCalculator
 {
@@ -13,12 +15,7 @@ public partial class PerfCalculator
     /// <exception cref="Exception"></exception>
     public static double TakeoffGroundRun(TakeoffIndex takeoffIndex, GrossWeight grossWeight, double windSpeed)
     {
-        double groundRun = PerfCalculatorHelpers.BilinearInterpolate(
-            TakeoffGroundRunTable,
-            AxisTakeoffIndexesExtd,
-            AxisWeights,
-            takeoffIndex,
-            grossWeight);
+        double groundRun = TakeoffGroundRunTable.Interpolate(takeoffIndex, grossWeight);
         
         if (groundRun == -1)
             throw new ArgumentOutOfRangeException(nameof(grossWeight), $"Aircraft too heavy for the specified takeoff index (takeoffIndex={takeoffIndex}, grossWeight={grossWeight})");
@@ -26,12 +23,7 @@ public partial class PerfCalculator
         if (groundRun < 1000)
             return groundRun; // no correction for short distances
 
-        groundRun = PerfCalculatorHelpers.BilinearInterpolate(
-            GroundWindCorrection,
-            AxisDistances14, AxisWinds,
-            groundRun, windSpeed);
-
-        return groundRun;
+        return GroundWindCorrection.Interpolate(groundRun, windSpeed);
     }
 
     public static double TakeoffGroundRun(double takeoffIndex, double grossWeight, double windSpeed)
