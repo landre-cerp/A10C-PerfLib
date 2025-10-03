@@ -13,10 +13,11 @@ public partial class PerfCalculator
     /// <returns>The required distance to takeoff </returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     /// <exception cref="Exception"></exception>
-    public static double TakeoffGroundRun(TakeoffIndex takeoffIndex, GrossWeight grossWeight, double windSpeed)
+    public static double TakeoffGroundRun(TakeoffIndex takeoffIndex, GrossWeight grossWeight, double windSpeed, FLAPS flaps)
     {
-        double groundRun = TakeoffGroundRunTable.Interpolate(takeoffIndex, grossWeight);
-        
+        CorrectionTable tableToUse = flaps == FLAPS.UP ? TakeoffGroundRunTableFlapsUp : TakeoffGroundRunTableFlapsTO;
+        double groundRun = tableToUse.Interpolate(takeoffIndex, grossWeight);
+
         if (groundRun == -1)
             throw new ArgumentOutOfRangeException(nameof(grossWeight), $"Aircraft too heavy for the specified takeoff index (takeoffIndex={takeoffIndex}, grossWeight={grossWeight})");
 
@@ -26,8 +27,8 @@ public partial class PerfCalculator
         return GroundWindCorrection.Interpolate(groundRun, windSpeed);
     }
 
-    public static double TakeoffGroundRun(double takeoffIndex, double grossWeight, double windSpeed)
+    public static double TakeoffGroundRun(double takeoffIndex, double grossWeight, double windSpeed, FLAPS flaps)
     {
-        return TakeoffGroundRun(new TakeoffIndex(takeoffIndex), new GrossWeight(grossWeight), windSpeed);
+        return TakeoffGroundRun(new TakeoffIndex(takeoffIndex), new GrossWeight(grossWeight), windSpeed, flaps);
     }
 }

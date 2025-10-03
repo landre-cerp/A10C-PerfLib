@@ -1,4 +1,4 @@
-using a10c_perf_lib.src;
+using static a10c_perf_lib.src.PerfCalculator;
 
 namespace a10c_perf_lib.Tests;
 
@@ -10,27 +10,18 @@ public class CriticalFieldLengthTests
     public void CriticalFieldLength_WithInvalidTakeoffIndex_ThrowsArgumentOutOfRangeException(
         double takeoffIndex, double grossWeight)
     {
-        var windspeed = 0.0;
-        var flaps = PerfCalculator.FLAPS.TO;
-        var rcr = PerfCalculator.RCR.DRY;
-
         Assert.Throws<ArgumentOutOfRangeException>(() => 
-            PerfCalculator.CriticalFieldLength(takeoffIndex, grossWeight, windspeed, flaps, rcr));
+            CriticalFieldLength(takeoffIndex, grossWeight, 0.0, FLAPS.TO, RCR.DRY));
     }
 
     [Theory]
-    [InlineData(7.0, PerfCalculator.EMPTY_WEIGHT_LBS-1)] 
-    [InlineData(7.0, PerfCalculator.MAX_TAKEOFF_WEIGHT_LBS+1)] 
+    [InlineData(7.0, EMPTY_WEIGHT_LBS-1)] 
+    [InlineData(7.0, MAX_TAKEOFF_WEIGHT_LBS+1)] 
     public void CriticalFieldLength_WithInvalidGrossWeight_ThrowsArgumentOutOfRangeException(
         double takeoffIndex, double grossWeight)
     {
-        
-        var windspeed = 0.0;
-        var flaps = PerfCalculator.FLAPS.TO;
-        var rcr = PerfCalculator.RCR.DRY;
-
         Assert.Throws<ArgumentOutOfRangeException>(() => 
-            PerfCalculator.CriticalFieldLength(takeoffIndex, grossWeight, windspeed, flaps, rcr));
+            CriticalFieldLength(takeoffIndex, grossWeight, 0.0, FLAPS.TO, RCR.DRY));
     }
 
     
@@ -43,9 +34,9 @@ public class CriticalFieldLengthTests
     public void CriticalFieldLength_WithValidInputs_ReturnsExpectedValues(
         double takeoffIndex, double grossWeight, double windspeed, double expected)
     {
-        var result = PerfCalculator.CriticalFieldLength(
+        var result = CriticalFieldLength(
             takeoffIndex, grossWeight, windspeed, 
-            PerfCalculator.FLAPS.TO, PerfCalculator.RCR.DRY);
+            FLAPS.TO, RCR.DRY);
 
         Assert.InRange(result, expected - 50, expected + 50); 
     }
@@ -54,27 +45,27 @@ public class CriticalFieldLengthTests
     public void CriticalFieldLength_WindCorrection_Works()
     {
 
-        double resultNoWind = PerfCalculator.CriticalFieldLength(
-            7.0, 35000.0, 0.0, PerfCalculator.FLAPS.TO, PerfCalculator.RCR.DRY);
+        double resultNoWind = CriticalFieldLength(
+            7.0, 35000.0, 0.0, FLAPS.TO, RCR.DRY);
 
-        double resultHeadwind = PerfCalculator.CriticalFieldLength(
-            7.0, 35000.0, 10.0, PerfCalculator.FLAPS.TO, PerfCalculator.RCR.DRY);
+        double resultHeadwind = CriticalFieldLength(
+            7.0, 35000.0, 10.0, FLAPS.TO, RCR.DRY);
         Assert.True(resultHeadwind < resultNoWind);
 
-        double resultTailwind = PerfCalculator.CriticalFieldLength(
-            7.0, 35000.0, -10.0, PerfCalculator.FLAPS.TO, PerfCalculator.RCR.DRY);
+        double resultTailwind = CriticalFieldLength(
+            7.0, 35000.0, -10.0, FLAPS.TO, RCR.DRY);
         Assert.True(resultTailwind > resultNoWind);
     }
 
     [Theory]
-    [InlineData(PerfCalculator.FLAPS.UP, 1.07)] // Flaps UP augmente de 7%
-    public void CriticalFieldLength_FlapsCorrection_Works(PerfCalculator.FLAPS flaps, double expectedMultiplier)
+    [InlineData(FLAPS.UP, 1.07)] // Flaps UP augmente de 7%
+    public void CriticalFieldLength_FlapsCorrection_Works(FLAPS flaps, double expectedMultiplier)
     {
-        var baseResult = PerfCalculator.CriticalFieldLength(
-            7.0, 35000.0, 0.0, PerfCalculator.FLAPS.TO, PerfCalculator.RCR.DRY);
+        var baseResult = CriticalFieldLength(
+            7.0, 35000.0, 0.0, FLAPS.TO, RCR.DRY);
 
-        var correctedResult = PerfCalculator.CriticalFieldLength(
-            7.0, 35000.0, 0.0, flaps, PerfCalculator.RCR.DRY);
+        var correctedResult = CriticalFieldLength(
+            7.0, 35000.0, 0.0, flaps, RCR.DRY);
 
         Assert.InRange(correctedResult, baseResult * expectedMultiplier - 10, baseResult * expectedMultiplier + 10);
     }

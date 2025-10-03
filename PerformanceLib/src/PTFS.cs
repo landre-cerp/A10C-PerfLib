@@ -9,7 +9,7 @@ public partial class PerfCalculator
     /// </summary>
     /// <param name="temp">T° in °C</param>
     /// <returns>Predicted Fan Speed (PTFS)</returns>
-    public double PTFS(double temperature)
+    public static double PTFS(double temperature)
     {
         if (temperature < -40 || temperature > 50)
             throw new ArgumentOutOfRangeException(nameof(temperature), "Temperature out of range (-40 to 50 °C)");
