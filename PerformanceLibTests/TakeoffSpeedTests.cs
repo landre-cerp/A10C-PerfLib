@@ -22,4 +22,20 @@ public class TakeoffSpeedTests
     {
         Assert.Throws<ArgumentOutOfRangeException>(() => PerfCalculator.TakeOffSpeed(grossWeight));
     }
+
+    [Fact]
+    public void RotationSpeed_ReturnsExpected()
+    {
+        double grossWeight = 30000;
+        double expectedTakeoffSpeed = 118.60; 
+        
+        double takeoffSpeedDefault = PerfCalculator.TakeOffSpeed(grossWeight);
+        double takeoffSpeedWithFlaps = PerfCalculator.TakeOffSpeed(grossWeight, PerfCalculator.FLAPS.TO);
+        double takeoffSpeedWithFlapsUp = PerfCalculator.TakeOffSpeed(grossWeight, PerfCalculator.FLAPS.UP);
+        Assert.Equal(takeoffSpeedDefault, takeoffSpeedWithFlaps);
+        Assert.InRange(takeoffSpeedWithFlapsUp - takeoffSpeedWithFlaps, 4, 5);
+
+        double result = PerfCalculator.RotationSpeed(grossWeight);
+        Assert.Equal(expectedTakeoffSpeed - 10, result,2);
+    }
 }
