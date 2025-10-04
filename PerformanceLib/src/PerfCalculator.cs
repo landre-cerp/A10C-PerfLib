@@ -8,7 +8,7 @@ public partial class PerfCalculator
     public enum FLAPS
     {
         UP = 0,
-        TO = 7,
+        TO = 1,
     }
 
     public enum RCR
@@ -16,6 +16,12 @@ public partial class PerfCalculator
         DRY = 23,
         WET = 12,
         ICY = 5,
+    }
+
+    public enum ThrustSetting
+    {
+        Max = 0,
+        ThreePercentBelow = 1
     }
 
     public static double RCRWithoutAntiSkid(RCR rcr)
