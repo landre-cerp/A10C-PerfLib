@@ -4,6 +4,9 @@ namespace a10c_perf_lib.src;
 
 public partial class PerfCalculator
 {
+    private static readonly TakeoffGroundRunTableFlapsTO TakeoffGroundRunTableFlapsTO = new();
+    private static readonly TakeoffGroundRunTableFlapsUp TakeoffGroundRunTableFlapsUp = new();
+
     /// <summary>
     /// Calculate the Takeoff Ground Run in Feet
     /// </summary>

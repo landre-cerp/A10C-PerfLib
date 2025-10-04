@@ -6,56 +6,56 @@ namespace a10c_perf_lib.Tests;
 public class FiftyFootObstacleClearanceTests
 {
     [Theory]
-    [InlineData(1000, 0, FLAPS.TO, 1300)] 
-    [InlineData(2000, 0, FLAPS.TO, 2780)] 
-    [InlineData(3000, 0, FLAPS.TO, 4270)] 
-    [InlineData(1000, 0, FLAPS.UP, 1200)] 
-    [InlineData(2000, 0, FLAPS.UP, 2639)] 
-    [InlineData(1500, 0, FLAPS.TO, 2040)] 
-    [InlineData(2500, 0, FLAPS.TO, 3525)] 
+    [InlineData(1000, 0, FLAPS.TO, ThrustSetting.Max ,1300)] 
+    [InlineData(2000, 0, FLAPS.TO, ThrustSetting.Max ,2780)] 
+    [InlineData(3000, 0, FLAPS.TO, ThrustSetting.Max ,4270)] 
+    [InlineData(1000, 0, FLAPS.UP, ThrustSetting.Max ,1200)] 
+    [InlineData(2000, 0, FLAPS.UP, ThrustSetting.Max ,2639)] 
+    [InlineData(1500, 0, FLAPS.TO, ThrustSetting.Max ,2040)] 
+    [InlineData(2500, 0, FLAPS.TO, ThrustSetting.Max ,3525)] 
     public void FiftyFootObstacleClearanceDistance_WithNoWind_ReturnsExpectedValues(
-        double groundRun, double windspeed, FLAPS flaps, double expected)
+        double groundRun, double windspeed, FLAPS flaps, ThrustSetting thrust,double expected)
     {
-        var result = FiftyFootObstacleClearanceDistance(groundRun, windspeed, flaps);
+        var result = FiftyFtObstacleClearanceDistance(groundRun, windspeed, flaps, thrust);
         Assert.InRange(result, expected - 50, expected + 50);
     }
 
     [Theory]
-    [InlineData(1000, -20, FLAPS.TO, 1230)] 
-    [InlineData(1000, 20, FLAPS.TO, 1370)]  
-    [InlineData(1000, 40, FLAPS.TO, 1440)]  
-    [InlineData(2000, -20, FLAPS.TO, 2550)] 
-    [InlineData(2000, 40, FLAPS.TO, 3240)]  
+    [InlineData(1000, -20, FLAPS.TO, ThrustSetting.Max, 1230)] 
+    [InlineData(1000, 20, FLAPS.TO, ThrustSetting.Max, 1370)]  
+    [InlineData(1000, 40, FLAPS.TO, ThrustSetting.Max, 1440)]  
+    [InlineData(2000, -20, FLAPS.TO, ThrustSetting.Max, 2550)] 
+    [InlineData(2000, 40, FLAPS.TO, ThrustSetting.Max, 3240)]  
     public void FiftyFootObstacleClearanceDistance_WithWind_ReturnsExpectedValues(
-        double groundRun, double windspeed, FLAPS flaps, double expected)
+        double groundRun, double windspeed, FLAPS flaps, ThrustSetting thrust, double expected)
     {
-        var result = FiftyFootObstacleClearanceDistance(groundRun, windspeed, flaps);
+        var result = FiftyFtObstacleClearanceDistance(groundRun, windspeed, flaps, thrust);
         Assert.InRange(result, expected - 50, expected + 50);
     }
 
     [Theory]
-    [InlineData(1000, 10, FLAPS.TO)] 
-    [InlineData(1500, 10, FLAPS.TO)] 
-    [InlineData(2500, -10, FLAPS.UP)] 
-    [InlineData(3500, 30, FLAPS.UP)] 
+    [InlineData(1000, 10, FLAPS.TO, ThrustSetting.Max)] 
+    [InlineData(1500, 10, FLAPS.TO, ThrustSetting.Max)] 
+    [InlineData(2500, -10, FLAPS.UP, ThrustSetting.Max)] 
+    [InlineData(3500, 30, FLAPS.UP, ThrustSetting.Max)] 
     public void FiftyFootObstacleClearanceDistance_WithInterpolatedWind_ReturnsValidValues(
-        double groundRun, double windspeed, FLAPS flaps)
+        double groundRun, double windspeed, FLAPS flaps, ThrustSetting thrust)
     {
-        var result = FiftyFootObstacleClearanceDistance(groundRun, windspeed, flaps);
-        
+        var result = FiftyFtObstacleClearanceDistance(groundRun, windspeed, flaps, thrust);
+
         // Result should be positive and within reasonable range
         Assert.True(result > 0);
         Assert.True(result < 50000); // Sanity check for maximum reasonable value
     }
 
     [Theory]
-    [InlineData(1000, 0, FLAPS.TO)]
-    [InlineData(2000, 0, FLAPS.UP)]
+    [InlineData(1000, 0, FLAPS.TO, ThrustSetting.Max)]
+    [InlineData(2000, 0, FLAPS.UP, ThrustSetting.Max)]
     public void FiftyFootObstacleClearanceDistance_WithDifferentRCR_ReturnsValidValues(
-        double groundRun, double windspeed, FLAPS flaps)
+        double groundRun, double windspeed, FLAPS flaps, ThrustSetting thrust)
     {
-        var result = FiftyFootObstacleClearanceDistance(groundRun, windspeed, flaps);
-        
+        var result = FiftyFtObstacleClearanceDistance(groundRun, windspeed, flaps, thrust);
+
         // Note: Currently RCR parameter doesn't seem to affect the calculation
         // but this test ensures the method accepts all RCR values
         Assert.True(result > 0);
@@ -67,8 +67,8 @@ public class FiftyFootObstacleClearanceTests
         double groundRun = 1000;
         double windspeed = 0;
 
-        var resultFlapsTO = FiftyFootObstacleClearanceDistance(groundRun, windspeed, FLAPS.TO);
-        var resultFlapsUP = FiftyFootObstacleClearanceDistance(groundRun, windspeed, FLAPS.UP);
+        var resultFlapsTO = FiftyFtObstacleClearanceDistance(groundRun, windspeed, FLAPS.TO, ThrustSetting.Max);
+        var resultFlapsUP = FiftyFtObstacleClearanceDistance(groundRun, windspeed, FLAPS.UP, ThrustSetting.Max);
 
         // Should use different tables and return different values
         Assert.NotEqual(resultFlapsTO, resultFlapsUP);
@@ -87,9 +87,9 @@ public class FiftyFootObstacleClearanceTests
     {
         var flaps = FLAPS.TO;
 
-        var resultTailwind = FiftyFootObstacleClearanceDistance(groundRun, -windMagnitude, flaps);
-        var resultNoWind = FiftyFootObstacleClearanceDistance(groundRun, 0, flaps);
-        var resultHeadwind = FiftyFootObstacleClearanceDistance(groundRun, windMagnitude, flaps);
+        var resultTailwind = FiftyFtObstacleClearanceDistance(groundRun, -windMagnitude, flaps, ThrustSetting.Max);
+        var resultNoWind = FiftyFtObstacleClearanceDistance(groundRun, 0, flaps, ThrustSetting.Max);
+        var resultHeadwind = FiftyFtObstacleClearanceDistance(groundRun, windMagnitude, flaps, ThrustSetting.Max);
 
         // Headwind should increase distance, tailwind should decrease it
         if (windMagnitude > 0)
@@ -100,29 +100,29 @@ public class FiftyFootObstacleClearanceTests
     }
 
     [Theory]
-    [InlineData(5000, 0, FLAPS.TO, 7340)] // Mid-range ground run
-    [InlineData(6000, 0, FLAPS.TO, 9230)] // Higher ground run
-    [InlineData(7000, 0, FLAPS.TO, 11380)] // High ground run
-    [InlineData(5000, 0, FLAPS.UP, 7105)] // Mid-range with flaps up
-    [InlineData(6000, 0, FLAPS.UP, 8770)] // Higher ground run with flaps up
+    [InlineData(5000, 0, FLAPS.TO,  ThrustSetting.Max, 7340)] // Mid-range ground run
+    [InlineData(6000, 0, FLAPS.TO, ThrustSetting.Max, 9230 )] // Higher ground run
+    [InlineData(7000, 0, FLAPS.TO, ThrustSetting.Max, 11380)] // High ground run
+    [InlineData(5000, 0, FLAPS.UP, ThrustSetting.Max,7105)] // Mid-range with flaps up
+    [InlineData(6000, 0, FLAPS.UP, ThrustSetting.Max, 8770)] // Higher ground run with flaps up
     public void FiftyFootObstacleClearanceDistance_HigherGroundRun_ReturnsExpectedValues(
-        double groundRun, double windspeed, FLAPS flaps, double expected)
+        double groundRun, double windspeed, FLAPS flaps, ThrustSetting thrustSetting, double expected)
     {
-        var result = FiftyFootObstacleClearanceDistance(groundRun, windspeed, flaps);
+        var result = FiftyFtObstacleClearanceDistance(groundRun, windspeed, flaps, thrustSetting);
         Assert.InRange(result, expected - 100, expected + 100);
     }
 
     [Theory]
-    [InlineData(12000, 0, FLAPS.TO)] 
-    [InlineData(13000, 0, FLAPS.TO)]
-    [InlineData(12000, 0, FLAPS.UP)]
-    [InlineData(10000, 20, FLAPS.UP)]
-    [InlineData(14000, 0, FLAPS.UP)]
+    [InlineData(12000, 0, FLAPS.TO, ThrustSetting.Max)] 
+    [InlineData(13000, 0, FLAPS.TO, ThrustSetting.Max)]
+    [InlineData(12000, 0, FLAPS.UP, ThrustSetting.Max)]
+    [InlineData(10000, 20, FLAPS.UP, ThrustSetting.Max)]
+    [InlineData(14000, 0, FLAPS.UP, ThrustSetting.Max)]
     public void FiftyFootObstacleClearanceDistance_EdgeCases_ReturnsValidValues(
-        double groundRun, double windspeed, FLAPS flaps)
+        double groundRun, double windspeed, FLAPS flaps, ThrustSetting thrust)
     {
-        var result = FiftyFootObstacleClearanceDistance(groundRun, windspeed, flaps);
-        
+        var result = FiftyFtObstacleClearanceDistance(groundRun, windspeed, flaps, thrust);
+
         Assert.True(result < 0);
     }
 
@@ -135,17 +135,18 @@ public class FiftyFootObstacleClearanceTests
     public void FiftyFootObstacleClearanceDistance_BilinearInterpolation_ReturnsConsistentResults(
         double groundRun, double windspeed)
     {
-        var resultTO = FiftyFootObstacleClearanceDistance(groundRun, windspeed, FLAPS.TO);
-        var resultUP = FiftyFootObstacleClearanceDistance(groundRun, windspeed, FLAPS.UP);
+        var resultTOMax = FiftyFtObstacleClearanceDistance(groundRun, windspeed, FLAPS.TO, ThrustSetting.Max);
+        var resultUPMax = FiftyFtObstacleClearanceDistance(groundRun, windspeed, FLAPS.UP, ThrustSetting.Max);
 
         // Both should be positive and within reasonable range
-        Assert.True(resultTO > 0);
-        Assert.True(resultUP > 0);
-        Assert.True(resultTO < 50000);
-        Assert.True(resultUP < 50000);
+        Assert.True(resultTOMax > 0);
+        Assert.True(resultUPMax > 0);
+        Assert.True(resultTOMax < 50000);
+        Assert.True(resultUPMax < 50000);
         
         // Results should be different (different tables)
-        Assert.NotEqual(resultTO, resultUP);
+        Assert.NotEqual(resultTOMax, resultUPMax);
+
     }
 
     [Fact]
@@ -155,9 +156,9 @@ public class FiftyFootObstacleClearanceTests
         double windspeed = 10;
         var flaps = FLAPS.TO;
 
-        var resultDry = FiftyFootObstacleClearanceDistance(groundRun, windspeed, flaps);
-        var resultWet = FiftyFootObstacleClearanceDistance(groundRun, windspeed, flaps);
-        var resultIcy = FiftyFootObstacleClearanceDistance(groundRun, windspeed, flaps);
+        var resultDry = FiftyFtObstacleClearanceDistance(groundRun, windspeed, flaps, ThrustSetting.Max);
+        var resultWet = FiftyFtObstacleClearanceDistance(groundRun, windspeed, flaps, ThrustSetting.Max);
+        var resultIcy = FiftyFtObstacleClearanceDistance(groundRun, windspeed, flaps, ThrustSetting.Max);
 
         // Note: Current implementation doesn't use RCR, so values should be equal
         // This test documents current behavior and will catch changes if RCR is implemented
