@@ -104,7 +104,7 @@ public class FiftyFootObstacleClearanceTests
     [InlineData(6000, 0, FLAPS.TO, ThrustSetting.Max, 9230 )] // Higher ground run
     [InlineData(7000, 0, FLAPS.TO, ThrustSetting.Max, 11380)] // High ground run
     [InlineData(5000, 0, FLAPS.UP, ThrustSetting.Max,7105)] // Mid-range with flaps up
-    [InlineData(6000, 0, FLAPS.UP, ThrustSetting.Max,8770)] // Higher ground run with flaps up
+    [InlineData(6000, 0, FLAPS.UP, ThrustSetting.Max, 8770)] // Higher ground run with flaps up
     public void FiftyFootObstacleClearanceDistance_HigherGroundRun_ReturnsExpectedValues(
         double groundRun, double windspeed, FLAPS flaps, ThrustSetting thrustSetting, double expected)
     {
