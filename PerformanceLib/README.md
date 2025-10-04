@@ -15,11 +15,6 @@ This is a work-in-progress library for DCS A-10C performance calculations.
 
 - RCR values and conversion without antiskid
 
-## TODO
-
-
-
-
 ## Utils
 
 - QNH Conversions
