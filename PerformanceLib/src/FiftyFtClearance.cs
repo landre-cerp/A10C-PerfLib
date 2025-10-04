@@ -6,7 +6,7 @@ public partial class PerfCalculator
 {
     /// <summary>
     /// Calculates the fifty-feet obstacle clearance distance based on ground run, windspeed, flap setting.
-    /// and whether MAx thrust or 3% below PTFS thrust is used.
+    /// and whether Max thrust or 3% below PTFS thrust is used.
     /// </summary>
     /// <param name="groundRun">Calculated distance in feet</param>
     /// <param name="windspeed">Head wind component in knots</param>
