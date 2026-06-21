@@ -1,4 +1,4 @@
-﻿using a10c_perf_lib.src.CorrectionTables;
+﻿using a10c_perf_lib.src.Tables.Takeoff.FiftyFt;
 
 namespace a10c_perf_lib.src;
 
@@ -15,6 +15,6 @@ public partial class PerfCalculator
     /// <returns>The distance needed to clear a 50 feet high obstacle</returns>
     public static double FiftyFtObstacleClearanceDistance(double groundRun, double windspeed, FLAPS flaps, ThrustSetting threePercentBelow)
     {
-        return FiftyFtClearanceTableRegistry.Get(flaps, threePercentBelow).Interpolate(groundRun, windspeed);
+        return FiftyFtRegistry.Get(flaps, threePercentBelow).Interpolate(groundRun, windspeed);
     }
 }

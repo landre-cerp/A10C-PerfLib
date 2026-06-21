@@ -1,10 +1,10 @@
-namespace a10c_perf_lib.src.CorrectionTables;
+namespace a10c_perf_lib.src.Tables.Takeoff;
 
 /// <summary>
 /// Ground wind correction table for distance calculations.
 /// X-axis: Distance (1000-14000 ft), Y-axis: Wind speed (-20 to 40 knots)
 /// </summary>
-internal sealed class GroundWindCorrectionTable : CorrectionTable
+internal sealed class WindCorrectionTable : CorrectionTable
 {
     private static readonly double[] XAxis = { 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000 };
     private static readonly double[] YAxis = { -20, -10, 0, 10, 20, 30, 40 };

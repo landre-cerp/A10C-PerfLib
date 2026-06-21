@@ -1,4 +1,4 @@
-﻿using a10c_perf_lib.src.CorrectionTables;
+﻿using a10c_perf_lib.src.Tables.Takeoff;
 
 namespace a10c_perf_lib.src;
 

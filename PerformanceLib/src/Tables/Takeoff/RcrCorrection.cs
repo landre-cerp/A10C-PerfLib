@@ -1,10 +1,10 @@
-namespace a10c_perf_lib.src.CorrectionTables;
+namespace a10c_perf_lib.src.Tables.Takeoff;
 
 /// <summary>
 /// RCR (Runway Condition Reading) distance correction table.
 /// X-axis: Distance (1000-12000 ft), Y-axis: RCR values (5-23)
 /// </summary>
-internal sealed class RcrDistanceCorrectionTable : CorrectionTable
+internal sealed class RcrCorrectionTable : CorrectionTable
 {
     private static readonly double[] XAxis = { 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000 };
     private static readonly double[] YAxis = { 5, 10, 15, 20, 23 };

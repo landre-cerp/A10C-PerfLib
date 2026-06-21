@@ -1,11 +1,11 @@
-﻿using a10c_perf_lib.src.CorrectionTables;
+﻿using a10c_perf_lib.src.Tables.Takeoff;
 
 namespace a10c_perf_lib.src;
 
 public partial class PerfCalculator
 {
-    private static readonly TakeoffGroundRunTableFlapsTO TakeoffGroundRunTableFlapsTO = new();
-    private static readonly TakeoffGroundRunTableFlapsUp TakeoffGroundRunTableFlapsUp = new();
+    private static readonly GroundRunFlapsTOTable TakeoffGroundRunTableFlapsTO = new();
+    private static readonly GroundRunFlapsUpTable TakeoffGroundRunTableFlapsUp = new();
 
     /// <summary>
     /// Calculate the Takeoff Ground Run in Feet

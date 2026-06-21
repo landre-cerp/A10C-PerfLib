@@ -1,11 +1,11 @@
-﻿using a10c_perf_lib.src.CorrectionTables;
+﻿using a10c_perf_lib.src.Tables.Takeoff;
 
 namespace a10c_perf_lib.src;
 
 public partial class PerfCalculator
 {
-    private static readonly TakeoffIndexMaxThrustTable TakeoffIndexMaxThrustTable = new();
-    private static readonly TakeoffIndexThreePercentBelowTable TakeoffIndexThreePercentBelowTable = new();
+    private static readonly IndexMaxThrustTable TakeoffIndexMaxThrustTable = new();
+    private static readonly Index3PctBelowTable TakeoffIndexThreePercentBelowTable = new();
 
     public static TakeoffIndex CalcTakeoffIndex(double tempC, PressureAltitude altitude, bool isMaxThrust = true)
     {

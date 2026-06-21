@@ -1,15 +1,15 @@
 using static a10c_perf_lib.src.PerfCalculator;
 
-namespace a10c_perf_lib.src.CorrectionTables;
+namespace a10c_perf_lib.src.Tables.Takeoff.FiftyFt;
 
-internal static class FiftyFtClearanceTableRegistry
+internal static class FiftyFtRegistry
 {
     // Cached singletons; static initialization is thread-safe.
     private static readonly CorrectionTable[,] Tables =
     {
         // Thrust: Max, ThreePercentBelow
-        { new FiftyFtClearanceFlapsUpMaxThrustTable(), new FiftyFtClearanceFlapsUp3PercentBelowTable() }, // Flaps Up
-        { new FiftyFtClearanceFlapsToMaxThrustTable(), new FiftyFtClearanceFlapsTo3PercentBelowTable() }  // Flaps TO (7°)
+        { new FlapsUpMaxThrustTable(), new FlapsUp3PctBelowTable() }, // Flaps Up
+        { new FlapsToMaxThrustTable(), new FlapsTo3PctBelowTable() }  // Flaps TO (7Â°)
     };
 
     public static CorrectionTable Get(FLAPS flaps, ThrustSetting thrust)

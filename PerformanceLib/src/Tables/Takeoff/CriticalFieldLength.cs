@@ -1,4 +1,4 @@
-namespace a10c_perf_lib.src.CorrectionTables;
+namespace a10c_perf_lib.src.Tables.Takeoff;
 
 /// <summary>
 /// Critical field length table.
