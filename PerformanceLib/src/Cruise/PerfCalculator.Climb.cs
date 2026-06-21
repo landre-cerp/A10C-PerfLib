@@ -9,37 +9,34 @@ public partial class PerfCalculator
     private const double ClimbMinWeight = 25000;
     private const double ClimbMaxWeight = 50000;
 
-    public static double ClimbDistance(double startAltFt, double targetAltFt, double grossWeight, double drag, double deltaISA = 0)
+    public static ClimbResult Climb(double startAltFt, double targetAltFt, double grossWeight, double drag, double deltaISA = 0)
     {
         ValidateClimbInputs(startAltFt, targetAltFt, grossWeight, drag);
-        double target = Math.Max(0, ClimbDistanceTable.Instance.Interpolate(grossWeight, targetAltFt, drag));
-        double start  = Math.Max(0, ClimbDistanceTable.Instance.Interpolate(grossWeight, startAltFt,  drag));
-        double delta  = target - start;
-        if (delta <= 0) return 0;
-        if (deltaISA != 0) delta = Math.Max(0, ClimbDistTemp.Interpolate(Math.Clamp(delta, 0, 125), Math.Clamp(deltaISA, -40, 60)));
-        return Math.Ceiling(delta * 10) / 10;
+
+        double distance = ClimbDelta(ClimbDistanceTable.Instance.Interpolate, grossWeight, startAltFt, targetAltFt, drag);
+        double fuel     = ClimbDelta(ClimbFuelTable.Instance.Interpolate,     grossWeight, startAltFt, targetAltFt, drag);
+        double time     = ClimbDelta(ClimbTimeTable.Instance.Interpolate,     grossWeight, startAltFt, targetAltFt, drag);
+
+        if (deltaISA != 0)
+        {
+            double isa = Math.Clamp(deltaISA, -40, 60);
+            if (distance > 0) distance = Math.Max(0, ClimbDistTemp.Interpolate(Math.Clamp(distance, 0, 125),   isa));
+            if (fuel     > 0) fuel     = Math.Max(0, ClimbFuelTemp.Interpolate(Math.Clamp(fuel,     250, 2000), isa));
+            if (time     > 0) time     = Math.Max(0, ClimbTimeTemp.Interpolate(Math.Clamp(time,     0, 35),     isa));
+        }
+
+        return new ClimbResult(
+            DistanceNm: distance > 0 ? Math.Ceiling(distance * 10) / 10 : 0,
+            FuelLbs:    fuel     > 0 ? Math.Ceiling(fuel / 10.0) * 10   : 0,
+            TimeMin:    time     > 0 ? Math.Ceiling(time)                : 0
+        );
     }
 
-    public static double ClimbFuel(double startAltFt, double targetAltFt, double grossWeight, double drag, double deltaISA = 0)
+    private static double ClimbDelta(Func<double, double, double, double> interpolate, double weight, double startAlt, double targetAlt, double drag)
     {
-        ValidateClimbInputs(startAltFt, targetAltFt, grossWeight, drag);
-        double target = Math.Max(0, ClimbFuelTable.Instance.Interpolate(grossWeight, targetAltFt, drag));
-        double start  = Math.Max(0, ClimbFuelTable.Instance.Interpolate(grossWeight, startAltFt,  drag));
-        double delta  = target - start;
-        if (delta <= 0) return 0;
-        if (deltaISA != 0) delta = Math.Max(0, ClimbFuelTemp.Interpolate(Math.Clamp(delta, 250, 2000), Math.Clamp(deltaISA, -40, 60)));
-        return Math.Ceiling(delta / 10.0) * 10;
-    }
-
-    public static double ClimbTime(double startAltFt, double targetAltFt, double grossWeight, double drag, double deltaISA = 0)
-    {
-        ValidateClimbInputs(startAltFt, targetAltFt, grossWeight, drag);
-        double target = Math.Max(0, ClimbTimeTable.Instance.Interpolate(grossWeight, targetAltFt, drag));
-        double start  = Math.Max(0, ClimbTimeTable.Instance.Interpolate(grossWeight, startAltFt,  drag));
-        double delta  = target - start;
-        if (delta <= 0) return 0;
-        if (deltaISA != 0) delta = Math.Max(0, ClimbTimeTemp.Interpolate(Math.Clamp(delta, 0, 35), Math.Clamp(deltaISA, -40, 60)));
-        return Math.Ceiling(delta);
+        double target = Math.Max(0, interpolate(weight, targetAlt, drag));
+        double start  = Math.Max(0, interpolate(weight, startAlt,  drag));
+        return Math.Max(0, target - start);
     }
 
     private static void ValidateClimbInputs(double startAltFt, double targetAltFt, double grossWeight, double drag)

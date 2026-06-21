@@ -8,28 +8,23 @@ public partial class PerfCalculator
     private const double DescentMinWeight = 25000;
     private const double DescentMaxWeight = 50000;
 
-    public static double DescentDistance(double startAltFt, double endAltFt, double grossWeight, double drag)
+    public static DescentResult Descent(double startAltFt, double endAltFt, double grossWeight, double drag)
     {
         ValidateDescentInputs(startAltFt, endAltFt, grossWeight, drag);
-        double start = DescentDistanceTable.Instance.Interpolate(startAltFt, grossWeight, drag);
-        double end_  = DescentDistanceTable.Instance.Interpolate(endAltFt,   grossWeight, drag);
-        return Math.Ceiling(start - end_);
-    }
 
-    public static double DescentFuel(double startAltFt, double endAltFt, double grossWeight, double drag)
-    {
-        ValidateDescentInputs(startAltFt, endAltFt, grossWeight, drag);
-        double start = DescentFuelTable.Instance.Interpolate(startAltFt, grossWeight, drag);
-        double end_  = DescentFuelTable.Instance.Interpolate(endAltFt,   grossWeight, drag);
-        return Math.Ceiling(start - end_);
-    }
+        double distance = Math.Ceiling(DescentDistanceTable.Instance.Interpolate(startAltFt, grossWeight, drag)
+                                     - DescentDistanceTable.Instance.Interpolate(endAltFt,   grossWeight, drag));
+        double fuel     = Math.Ceiling(DescentFuelTable.Instance.Interpolate(startAltFt, grossWeight, drag)
+                                     - DescentFuelTable.Instance.Interpolate(endAltFt,   grossWeight, drag));
+        double time     = Math.Ceiling(DescentTimeTable.Instance.Interpolate(startAltFt, grossWeight, drag)
+                                     - DescentTimeTable.Instance.Interpolate(endAltFt,   grossWeight, drag));
 
-    public static double DescentTime(double startAltFt, double endAltFt, double grossWeight, double drag)
-    {
-        ValidateDescentInputs(startAltFt, endAltFt, grossWeight, drag);
-        double start = DescentTimeTable.Instance.Interpolate(startAltFt, grossWeight, drag);
-        double end_  = DescentTimeTable.Instance.Interpolate(endAltFt,   grossWeight, drag);
-        return Math.Ceiling(start - end_);
+        return new DescentResult(
+            DistanceNm:       distance,
+            FuelLbs:          fuel,
+            TimeMin:          time,
+            MaxRangeSpeedKts: MaxRangeDescentSpeedInstance.Interpolate(grossWeight, drag)
+        );
     }
 
     public static double MaxRangeDescentSpeed(double grossWeight, double drag)

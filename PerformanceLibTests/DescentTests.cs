@@ -9,8 +9,8 @@ public class DescentTests
     [Fact]
     public void DescentDistance_StartingHigher_RequiresMoreDistance()
     {
-        double short_ = DescentDistance(20000, 10000, 35000, 0);
-        double long_  = DescentDistance(35000, 10000, 35000, 0);
+        double short_ = Descent(20000, 10000, 35000, 0).DistanceNm;
+        double long_  = Descent(35000, 10000, 35000, 0).DistanceNm;
         Assert.True(long_ > short_, $"Long={long_} should exceed short={short_}");
     }
 
@@ -18,24 +18,24 @@ public class DescentTests
     public void DescentFuel_MoreDrag_LessFuel()
     {
         // More drag → steeper glide path → less time at idle → less fuel used
-        double clean = DescentFuel(35000, 0, 35000, 0);
-        double dirty = DescentFuel(35000, 0, 35000, 8);
+        double clean = Descent(35000, 0, 35000, 0).FuelLbs;
+        double dirty = Descent(35000, 0, 35000, 8).FuelLbs;
         Assert.True(dirty < clean, $"Drag8={dirty} should be less than drag0={clean}");
     }
 
     [Fact]
     public void DescentTime_LongerSegment_TakesMoreTime()
     {
-        double short_ = DescentTime(20000, 10000, 35000, 0);
-        double long_  = DescentTime(35000, 0,     35000, 0);
+        double short_ = Descent(20000, 10000, 35000, 0).TimeMin;
+        double long_  = Descent(35000, 0,     35000, 0).TimeMin;
         Assert.True(long_ > short_, $"Long={long_} should exceed short={short_}");
     }
 
     [Fact]
     public void DescentFuel_HeavierWeight_UseMoreFuel()
     {
-        double light = DescentFuel(35000, 0, 30000, 0);
-        double heavy = DescentFuel(35000, 0, 45000, 0);
+        double light = Descent(35000, 0, 30000, 0).FuelLbs;
+        double heavy = Descent(35000, 0, 45000, 0).FuelLbs;
         Assert.True(heavy > light, $"Heavy={heavy} should exceed light={light}");
     }
 
@@ -44,14 +44,14 @@ public class DescentTests
     [Fact]
     public void DescentDistance_ToSameAltitude_ReturnsZero()
     {
-        double result = DescentDistance(25000, 25000, 35000, 0);
+        double result = Descent(25000, 25000, 35000, 0).DistanceNm;
         Assert.Equal(0, result);
     }
 
     [Fact]
     public void DescentFuel_ToZeroAltitude_PositiveResult()
     {
-        double result = DescentFuel(35000, 0, 35000, 0);
+        double result = Descent(35000, 0, 35000, 0).FuelLbs;
         Assert.True(result > 0, $"Fuel={result} should be positive");
     }
 
@@ -83,24 +83,32 @@ public class DescentTests
         Assert.Equal(expected, result, 1.0);
     }
 
+    [Fact]
+    public void DescentResult_MaxRangeSpeedKts_MatchesStandaloneMethod()
+    {
+        var result = Descent(35000, 0, 35000, 4);
+        double standalone = MaxRangeDescentSpeed(35000, 4);
+        Assert.Equal(standalone, result.MaxRangeSpeedKts);
+    }
+
     // ── Argument validation ─────────────────────────────────────────────────
 
     [Fact]
     public void DescentDistance_StartAboveMax_Throws()
     {
-        Assert.Throws<ArgumentOutOfRangeException>(() => DescentDistance(36000, 0, 35000, 0));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Descent(36000, 0, 35000, 0));
     }
 
     [Fact]
     public void DescentDistance_EndAboveStart_Throws()
     {
-        Assert.Throws<ArgumentException>(() => DescentDistance(20000, 25000, 35000, 0));
+        Assert.Throws<ArgumentException>(() => Descent(20000, 25000, 35000, 0));
     }
 
     [Fact]
     public void DescentDistance_InvalidDrag_Throws()
     {
-        Assert.Throws<ArgumentOutOfRangeException>(() => DescentDistance(35000, 0, 35000, 9));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Descent(35000, 0, 35000, 9));
     }
 
     // ── Approximate spot check vs TS reference ──────────────────────────────
@@ -110,7 +118,7 @@ public class DescentTests
     [InlineData(35000, 0,     35000, 0)]  // full descent to SL
     public void DescentDistance_ReasonableRange(double startAlt, double endAlt, double weight, double drag)
     {
-        double result = DescentDistance(startAlt, endAlt, weight, drag);
+        double result = Descent(startAlt, endAlt, weight, drag).DistanceNm;
         Assert.True(result > 0 && result < 300, $"Distance {result} NM outside plausible range");
     }
 
@@ -119,7 +127,7 @@ public class DescentTests
     [InlineData(35000, 0,     35000, 0)]
     public void DescentFuel_ReasonableRange(double startAlt, double endAlt, double weight, double drag)
     {
-        double result = DescentFuel(startAlt, endAlt, weight, drag);
+        double result = Descent(startAlt, endAlt, weight, drag).FuelLbs;
         Assert.True(result > 0 && result < 3000, $"Fuel {result} lbs outside plausible range");
     }
 
@@ -128,7 +136,7 @@ public class DescentTests
     [InlineData(35000, 0,     35000, 0)]
     public void DescentTime_ReasonableRange(double startAlt, double endAlt, double weight, double drag)
     {
-        double result = DescentTime(startAlt, endAlt, weight, drag);
+        double result = Descent(startAlt, endAlt, weight, drag).TimeMin;
         Assert.True(result > 0 && result < 60, $"Time {result} min outside plausible range");
     }
 }
