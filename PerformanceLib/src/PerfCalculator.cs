@@ -24,6 +24,18 @@ public partial class PerfCalculator
         ThreePercentBelow = 1
     }
 
+    public enum LandingFlaps
+    {
+        SEVEN = 7,
+        TWENTY = 20,
+    }
+
+    public enum Speedbrakes
+    {
+        Open = 100,
+        Closed = 0,
+    }
+
     public static double RCRWithoutAntiSkid(RCR rcr)
     {
         return 0.695 * (double)rcr;
