@@ -6,6 +6,8 @@ public partial class PerfCalculator
 {
     private static readonly LandingGroundRollFlaps20SB100Table LandingGroundRollSB100Table = new();
     private static readonly LandingGroundRollFlaps20SB0Table LandingGroundRollSB0Table = new();
+    private static readonly LandingWindCorrectionTable LandingWindCorrection = new();
+    private static readonly LandingRcrCorrectionTable LandingRcrCorrection = new();
 
     /// <summary>
     /// Calculate the landing ground roll in feet (flaps 20°).

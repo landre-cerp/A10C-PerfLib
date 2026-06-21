@@ -1,11 +1,11 @@
-namespace a10c_perf_lib.src.CorrectionTables;
+namespace a10c_perf_lib.src.Tables.Takeoff.FiftyFt;
 
 /// <summary>
-/// Fifty-feet obstacle clearance table for flaps in TO (7°) position.
+/// Fifty-feet obstacle clearance table for flaps in TO (7ï¿½) position.
 /// Thrust 3 percent below PTFS
 /// X-axis: Ground run distance (0-14000 ft), Y-axis: Wind speed (-20 to 40 knots)
 /// </summary>
-internal sealed class FiftyFtClearanceFlapsTo3PercentBelowTable : CorrectionTable
+internal sealed class FlapsTo3PctBelowTable : CorrectionTable
 {
     private static readonly double[] XAxis = { 0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000 };
     private static readonly double[] YAxis = { -20, 0, 20, 40 };
@@ -35,5 +35,5 @@ internal sealed class FiftyFtClearanceFlapsTo3PercentBelowTable : CorrectionTabl
         return BilinearInterpolate(Matrix, XAxis, YAxis, x, y);
     }
 
-    public override string Description => "Fifty-feet obstacle clearance distance with flaps TO (7°), 3% below the maximum thrust.";
+    public override string Description => "Fifty-feet obstacle clearance distance with flaps TO (7ï¿½), 3% below the maximum thrust.";
 }

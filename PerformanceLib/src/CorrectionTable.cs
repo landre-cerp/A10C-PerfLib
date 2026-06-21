@@ -22,7 +22,7 @@ public abstract class CorrectionTable
     /// <summary>
     /// Protected helper method for bilinear interpolation that concrete classes can use.
     /// </summary>
-    protected static double BilinearInterpolate(
+    internal static double BilinearInterpolate(
         double[,] matrix,
         double[] xAxis,
         double[] yAxis,
